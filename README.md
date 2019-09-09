@@ -12,5 +12,5 @@ Main Objectives:
 
 3. Seeing if this type of project would be useful for future employee onboarding on the API team. 
 
-
+4. Hoping to get some good experience and confidence from this project!
 
