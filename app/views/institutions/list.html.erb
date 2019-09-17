@@ -3,10 +3,13 @@
 <div>
 <% for @institution in @institutions %>
 <div class="button">
-    <%= @institution.name %>
-    <%= @institution.code %>
     <img src='<%=@institution.small_logo_url %>'>
-    <= button_to '+', {:controller}
+    <%= link_to "#{@institution.name}",{
+        :controller => "members",
+        :action => "new",
+        :method => "get",
+        :code => @institution.code
+    } %>
     </div>
 <% end %>
 </div>

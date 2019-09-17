@@ -3,7 +3,7 @@ class UsersController < ApplicationController
         @response = get_atrium_user
         @atrium_user_guid = @response.user.guid
         current_user.update_attribute(:guid, @atrium_user_guid)
-        redirect_to action: "show"
+        redirect_to action: "profile"
     end 
 
     def profile
