@@ -1,12 +1,15 @@
 <h2>Whatever</h2>
-<%= current_user.email %>
 <div>
 <% for @institution in @institutions %>
 <div class="button">
-    <%= @institution.name %>
-    <%= @institution.code %>
     <img src='<%=@institution.small_logo_url %>'>
-    <= button_to '+', {:controller}
+    <%= link_to "#{@institution.name}",{
+        :controller => "members",
+        :action => "new",
+        :method => "get",
+        :code => @institution.code
+    } %>
     </div>
+    <%= link_to root_path %>
 <% end %>
 </div>

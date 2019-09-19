@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
-    def user_stuff
+    def atrium_create
         @response = get_atrium_user
         @atrium_user_guid = @response.user.guid
         current_user.update_attribute(:guid, @atrium_user_guid)
-        redirect_to action: "show"
+        redirect_to :action => "list", :controller => "institutions"
     end 
 
     def profile
