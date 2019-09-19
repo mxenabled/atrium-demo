@@ -1,5 +1,4 @@
 <h2>Whatever</h2>
-<%= current_user.email %>
 <div>
 <% for @institution in @institutions %>
 <div class="button">
@@ -11,5 +10,6 @@
         :code => @institution.code
     } %>
     </div>
+    <%= link_to root_path %>
 <% end %>
 </div>
