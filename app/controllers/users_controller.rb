@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+
     def atrium_create
         @response = get_atrium_user
         @atrium_user_guid = @response.user.guid
@@ -7,6 +9,8 @@ class UsersController < ApplicationController
     end 
 
     def profile
+      @user_guid = current_user.guid
+      @member = current_user.members.all.to_a
     end 
 
 private 
