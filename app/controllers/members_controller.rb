@@ -1,15 +1,25 @@
 class MembersController < ApplicationController
+  before_action :authenticate_user!
+
     def new 
         @code = params[:code]
         response = get_institution_creds(@code)
         @institution_credentials = response.credentials
-        p @credentials
     end 
 
     def create
+        @member = Member.new
         member_credentials = params[:credentials].permit!().values
         response = create_atrium_member(params[:institution_code], member_credentials, params[:user_guid])
-        p response
+        @member.guid = response.member.guid
+        @member.user_guid = response.member.user_guid
+        @member.institution_code = response.member.institution_code
+        @member.user_id = current_user.id
+        if @member.save!
+            redirect_to '/user_profile'
+        else  
+            redirect_to '/institutions'
+        end         
     end 
 
     private 
@@ -28,14 +38,11 @@ class MembersController < ApplicationController
     end
 
     def create_atrium_member(code, credential_hash, user_guid)
-        member_info = {:member => {:institution_code => code, :credentials => credential_hash, :skip_aggregation => true}}
-        #member_info = {:member => member_parameters}
-        p member_info
+        member_info = {:member => {:institution_code => code, :credentials => credential_hash, :skip_aggregation => false}}
         api_key = Rails.application.credentials.dig(:mx_api_key)
         client_id = Rails.application.credentials.dig(:mx_client_id)
         client = Atrium::AtriumClient.new("#{api_key}", "#{client_id}")
-        body = Atrium::MemberCreateRequestBody.new(member_info) # MemberCreateRequestBody | Member object to be created with optional parameters (identifier and metadata) and required parameters (credentials and institution_code)
-        p body
+        body = Atrium::MemberCreateRequestBody.new(member_info)
         begin
           #Create member
           response = client.members.create_member(user_guid, body)
