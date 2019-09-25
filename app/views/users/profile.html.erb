@@ -1,5 +1,31 @@
 
 <h1> User Guid </h1>
 <%= @user_guid %>
-<%= @member %>
+<h2>Memberships</h2>
+    <% for @member in @members %>
+        <div class="button"> 
+            <%= link_to "View Membership",{
+                :controller => "members",
+                :action => "show",
+                :method => "get",
+                :member_guid => @member.guid
+            } %>
+        </div>
+    <% end %>
+        
+    <% for @account in @accounts %>
+        <%= @account.name %>
+        <%= @account.balance %>
+        <%= @account.type %>
+    <% end %>
+    <div>
+        <div class="button"> 
+            <%= link_to "Add another account",{
+                :controller => "institutions",
+                :action => "list",
+                :method => "get",
+            } %>
+        </div>
+    </div>
+
 

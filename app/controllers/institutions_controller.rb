@@ -2,31 +2,19 @@ class InstitutionsController < ApplicationController
   #before_action :set_institution, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
-  # GET /institutions
-  # GET /institutions.json
   def index
     @institutions = Institution.all
   end
-
-  # GET /institutions/1
-  # GET /institutions/1.json
 
   def list
     @response = get_institutions
     @institutions = @response.institutions
   end 
-  # GET /institutions/new
+
   def new
     @institutions = get_institutions
-  #  @institution = Institution.new
   end
 
-  # GET /institutions/1/edit
-  #def edit
-  #end
-
-  # POST /institutions
-  # POST /institutions.json
   def create
     @institution = Institution.new(institution_params)
 
@@ -41,22 +29,6 @@ class InstitutionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /institutions/1
-  # PATCH/PUT /institutions/1.json
-  def update
-    respond_to do |format|
-      if @institution.update(institution_params)
-        format.html { redirect_to @institution, notice: 'Institution was successfully updated.' }
-        format.json { render :show, status: :ok, location: @institution }
-      else
-        format.html { render :edit }
-        format.json { render json: @institution.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /institutions/1
-  # DELETE /institutions/1.json
   def destroy
     @institution.destroy
     respond_to do |format|
