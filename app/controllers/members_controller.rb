@@ -8,23 +8,18 @@ class MembersController < ApplicationController
     end 
 
     def create
-        @member = Member.new
-        credentials = credential_params(params[:credentials])
-        # credentials = credential_params(params[:credentials])
-        # member_credentials = params[:credentials].values
-        # institution_credentials = params[:credentials].keys
-        # credentials = institution_credentials.zip(member_credentials)
-        # credentials.map! { |n| [n].to_h }
-        response = create_atrium_member(params[:institution_code], credentials, params[:user_guid])
-        @member.guid = response.member.guid
-        @member.user_guid = response.member.user_guid
-        @member.institution_code = response.member.institution_code
-        @member.user_id = current_user.id
-        if @member.save!
-            redirect_to '/user_profile'
-        else  
-            redirect_to '/institutions'
-        end         
+      @member = Member.new
+      credentials = credential_params(params[:credentials])
+      response = create_atrium_member(params[:institution_code], credentials, params[:user_guid])
+      @member.guid = response.member.guid
+      @member.user_guid = response.member.user_guid
+      @member.institution_code = response.member.institution_code
+      @member.user_id = current_user.id
+      if @member.save!
+          redirect_to '/user_profile'
+      else  
+          redirect_to '/institutions'
+      end         
     end 
 
     def show 
@@ -33,7 +28,6 @@ class MembersController < ApplicationController
     end 
 
     private 
-
     def create_atrium_member(code, creds, user_guid)
       member_info = {:member => {:institution_code => code, :credentials => creds, :skip_aggregation => false}}
       api_key = Rails.application.credentials.dig(:mx_api_key)
@@ -46,9 +40,9 @@ class MembersController < ApplicationController
         response = client.members.create_member(user_guid, body)
         p response
       rescue Atrium::ApiError => e
-        puts "Exception when calling MembersApi->create_member: #{e}"
+        Rails.logger.info "Exception when calling MembersApi->create_member: #{e}"
       end
-  end 
+    end 
 
     def get_institution_creds(code)
         api_key = Rails.application.credentials.dig(:mx_api_key)
@@ -60,7 +54,7 @@ class MembersController < ApplicationController
           response = client.institutions.read_institution_credentials(institution_code)
           p response
         rescue Atrium::ApiError => e
-          puts "Exception when calling InstitutionsApi->read_institution_credentials: #{e}"
+          Rails.logger.info "Exception when calling InstitutionsApi->read_institution_credentials: #{e}"
         end
     end
 
@@ -77,7 +71,7 @@ class MembersController < ApplicationController
         response = client.members.read_member_status(member_guid, user_guid)
         p response
       rescue Atrium::ApiError => e
-        puts "Exception when calling MembersApi->read_member_status: #{e}"
+        Rails.logger.info "Exception when calling MembersApi->read_member_status: #{e}"
       end
     end 
 

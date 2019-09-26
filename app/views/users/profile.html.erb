@@ -1,4 +1,3 @@
-
 <h1> User Guid </h1>
 <%= @user_guid %>
 <h2>Memberships</h2>
@@ -14,10 +13,17 @@
     <% end %>
         
     <% for @account in @accounts %>
-        <%= @account.name %>
-        <%= @account.balance %>
-        <%= @account.type %>
+        <div class="button">
+            <%= link_to "#{@account.name} - Balance: #{@account.balance}",{
+                :controller => "accounts",
+                :action => "show",
+                :method => "get",
+                :account_guid => @account.guid,
+                :institution_code => @account.institution_code
+            } %>
+        </div>
     <% end %>
+
     <div>
         <div class="button"> 
             <%= link_to "Add another account",{

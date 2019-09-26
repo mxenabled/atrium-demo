@@ -1,0 +1,42 @@
+<div class="container">
+    <nav class="level account_info">   
+        <div class="level-item has-centered">
+            <p class="title"><%= @account.name %></p>
+        </div>
+        <div class="level-item">
+            <div>
+                <p class="title"><%= @account.balance %></p>
+                <p class="heading">Current Balance</p>
+            </div>
+        </div>
+        <div class="level-item">
+            <div>
+                <p class="title"><%= @account.available_balance %></p>
+                <p class="heading">Available Balance </p>
+            </div>
+        </div>
+    </nav>
+
+    <table class="table is-fullwidth" id="transaction-table">
+        <% for @transaction in @transactions %>
+            <tr class="transaction-row">
+            <% @date = date_fix(@transaction.date) %>
+                <td class="date"><%= @date %></td>
+                <td class="description"><%= "#{@transaction.description}" %></td>
+                <td class="amount"><%=  "$#{@transaction.amount}" %></td>
+                <td class="category"><%= " #{@transaction.category}" %></td>
+                <td class="status"><% if @transaction.status == "PENDING" %>
+                    <span class="pending"> Pending Transaction </span>
+                <% end %></td>
+            </tr>
+        <% end %>
+    </table>
+
+    <div class="button"> 
+        <%= link_to "Home",{
+            :controller => "users",
+            :action => "profile",
+            :method => "get",
+        } %>
+    </div>
+</div>

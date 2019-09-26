@@ -28,7 +28,7 @@ class UsersController < ApplicationController
         response = client.users.create_user(body)
         p response
       rescue Atrium::ApiError => e
-        puts "Exception when calling UsersApi->create_user: #{e}"
+        Rails.logger.info "Exception when calling UsersApi->create_user: #{e}"
       end
     end 
 
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
       response = client.accounts.list_user_accounts(user_guid)
       p response
     rescue Atrium::ApiError => e
-      puts "Exception when calling AccountsApi->list_user_accounts: #{e}"
+      Rails.logger.info "Exception when calling AccountsApi->list_user_accounts: #{e}"
     end
   end 
   
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
       response = client.members.read_member_status(member_guid, user_guid)
       p response
     rescue Atrium::ApiError => e
-      puts "Exception when calling MembersApi->read_member_status: #{e}"
+      Rails.logger.info "Exception when calling MembersApi->read_member_status: #{e}"
     end
   end
 end 
