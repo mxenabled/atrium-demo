@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   resources :members
   devise_for :users 
 
@@ -9,6 +8,7 @@ Rails.application.routes.draw do
 
   root  'static_pages#home' 
   get   '/home',             to: 'static_pages#home'
+  get   'account_view',      to: 'accounts#show'
   get   '/help',             to: 'static_pages#help'
   get   '/user_profile',     to: 'users#profile'
   get   '/institutions',     to: 'institutions#list'
