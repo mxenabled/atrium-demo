@@ -1,15 +1,17 @@
-<h2>Whatever</h2>
-<div>
-<% for @institution in @institutions %>
-<div class="button">
-    <img src='<%=@institution.small_logo_url %>'>
-    <%= link_to "#{@institution.name}",{
-        :controller => "members",
-        :action => "new",
-        :method => "get",
-        :code => @institution.code
-    } %>
+<div class="container"> 
+    <h2>Whatever</h2>
+    <div>
+    <% for @institution in @institutions %>
+    <div class="button">
+        <img src='<%=@institution.small_logo_url %>'>
+        <%= link_to "#{@institution.name}",{
+            :controller => "members",
+            :action => "new",
+            :method => "get",
+            :code => @institution.code
+        } %>
+        </div>
+        <%= link_to root_path %>
+    <% end %>
     </div>
-    <%= link_to root_path %>
-<% end %>
 </div>

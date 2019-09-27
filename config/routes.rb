@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users 
 
   as :user do
-    get 'users', :to => 'users#atrium_create', :as => :user_root
+    get 'users', :to => 'users#registration_path', :as => :user_root
   end
 
   root  'static_pages#home' 
