@@ -1,29 +1,25 @@
-<h1> User Guid </h1>
-<%= @user_guid %>
-<h2>Memberships</h2>
+<div class="container">
+    <h1> User Guid </h1>
+    <%= @user_guid %>
+    <h2>Memberships</h2>
     <% for @member in @members %>
-        <div class="button"> 
-            <%= link_to "View Membership",{
-                :controller => "members",
-                :action => "show",
-                :method => "get",
-                :member_guid => @member.guid
-            } %>
-        </div>
+    <%= @member.guid %>
+        <% @institution = read_institution(@member.institution_code) %>
+        <%= "Membership at #{@institution.institution.name}" %>
+        <div class="box"> 
+            <% for @account in @accounts %>
+                <div class="button">
+                    <%= link_to "#{@account.name} - Balance: #{@account.balance}",{
+                        :controller => "accounts",
+                        :action => "show",
+                        :method => "get",
+                        :account_guid => @account.guid,
+                        :institution_code => @account.institution_code
+                    } %>
+                </div>
+                <% end %>
+            </div>
     <% end %>
-        
-    <% for @account in @accounts %>
-        <div class="button">
-            <%= link_to "#{@account.name} - Balance: #{@account.balance}",{
-                :controller => "accounts",
-                :action => "show",
-                :method => "get",
-                :account_guid => @account.guid,
-                :institution_code => @account.institution_code
-            } %>
-        </div>
-    <% end %>
-
     <div>
         <div class="button"> 
             <%= link_to "Add another account",{
@@ -33,5 +29,5 @@
             } %>
         </div>
     </div>
-
+</div>
 

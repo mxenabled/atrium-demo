@@ -15,6 +15,14 @@ class UsersController < ApplicationController
       @members = current_user.members.all.to_a
     end 
 
+    def registration_path
+      if current_user.guid.nil? || current_user.members.nil? 
+        redirect_to '/user_stuff'
+      else 
+        redirect_to '/user_profile'
+      end 
+    end 
+
   private 
 
   def create_atrium_user
@@ -37,7 +45,6 @@ class UsersController < ApplicationController
     client_id = Rails.application.credentials.dig(:mx_client_id)
     client = Atrium::AtriumClient.new("#{api_key}", "#{client_id}")
     user_guid = current_user.guid
-
     begin
       #List accounts for a user
       response = client.accounts.list_user_accounts(user_guid)
