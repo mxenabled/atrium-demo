@@ -1,31 +1,13 @@
-<h1>Fin-lysian</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-    Nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum. 
-</p>
-<p>
-    Ornare arcu odio ut sem nulla pharetra diam sit amet. Ultricies mi quis hendrerit dolor magna eget. 
-    Pretium lectus quam id leo in. Consequat id porta nibh venenatis cras sed felis eget. 
-</p>
-<p>
-    Dictum varius duis at consectetur lorem donec massa. Semper risus in hendrerit gravida. 
-    Ornare lectus sit amet est placerat in egestas erat imperdiet. Id interdum velit laoreet id donec ultrices. 
-</p>
-<p>
-    Nulla porttitor massa id neque aliquam vestibulum. Duis tristique sollicitudin nibh sit. 
-    Cursus risus at ultrices mi tempus imperdiet nulla malesuada. 
-</p>
-<p>
-    Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada. 
-    Interdum velit laoreet id donec. Ornare lectus sit amet est placerat in egestas erat. 
-    Nullam non nisi est sit amet.
-</p>
-
-<% if user_signed_in? %>
-  <li>
-  <%= link_to('Logout', destroy_user_session_path, method: :delete) %>        
-  </li>
-<% else %>
-  <li>
-  <%= link_to('Login', new_user_session_path) %>  
-  </li>
-<% end %>
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Finlysian
+      </h1>
+      <h2 class="subtitle">
+         A Personal Finance Management Tool
+      </h2>
+      <p>Utilize the data you already have to become financially strong!</p>
+    </div>
+  </div>
+</section>
