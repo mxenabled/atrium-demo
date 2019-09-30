@@ -3,7 +3,6 @@
     <%= @user_guid %>
     <h2>Memberships</h2>
     <% for @member in @members %>
-    <%= @member.guid %>
         <% @institution = read_institution(@member.institution_code) %>
         <%= "Membership at #{@institution.institution.name}" %>
         <div class="box"> 

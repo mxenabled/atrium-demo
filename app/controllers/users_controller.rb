@@ -17,9 +17,9 @@ class UsersController < ApplicationController
 
     def registration_path
       if current_user.guid.nil? || current_user.members.nil? 
-        redirect_to '/user_stuff'
+        redirect_to 'users#atrium_create'
       else 
-        redirect_to '/user_profile'
+        redirect_to 'users#profile'
       end 
     end 
 
@@ -27,10 +27,12 @@ class UsersController < ApplicationController
 
   def create_atrium_user
     userInfo = {:user => {:identifier => SecureRandom.uuid}}
+    p userInfo
     api_key = Rails.application.credentials.dig(:mx_api_key)
     client_id = Rails.application.credentials.dig(:mx_client_id)
     client = Atrium::AtriumClient.new("#{api_key}", "#{client_id}")
     body = Atrium::UserCreateRequestBody.new(userInfo) # UserCreateRequestBody | User object to be created with optional parameters (identifier, is_disabled, metadata)
+    p body
     begin
         #Create user
         response = client.users.create_user(body)
