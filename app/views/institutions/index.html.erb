@@ -1,29 +1,17 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Institutions</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Code</th>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @institutions.each do |institution| %>
-      <tr>
-        <td><%= institution.code %></td>
-        <td><%= institution.name %></td>
-        <td><%= link_to 'Show', institution %></td>
-        <td><%= link_to 'Edit', edit_institution_path(institution) %></td>
-        <td><%= link_to 'Destroy', institution, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="container"> 
+    <h2>Whatever</h2>
+    <div>
+    <% for @institution in @institutions %>
+    <div class="button">
+        <img src='<%=@institution.small_logo_url %>'>
+        <%= link_to "#{@institution.name}",{
+            :controller => "members",
+            :action => "new",
+            :method => "get",
+            :institution_code => @institution.code
+        } %>
+        </div>
+        <%= link_to root_path %>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Institution', new_institution_path %>
+    </div>
+</div>

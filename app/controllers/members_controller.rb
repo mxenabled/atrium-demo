@@ -1,88 +1,66 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!
 
-    def new 
-        @code = params[:code]
-        response = get_institution_creds(@code)
-        @institution_credentials = response.credentials
-    end 
+  def new 
+    @institution_code = member_params[:institution_code]
+    @institution_credentials = get_institution_credentials(@institution_code)
+  end 
 
-    def create
-      @member = Member.new
-      credentials = credential_params(params[:credentials])
-      response = create_atrium_member(params[:institution_code], credentials, params[:user_guid])
-      @member.guid = response.member.guid
-      @member.user_guid = response.member.user_guid
-      @member.institution_code = response.member.institution_code
-      @member.user_id = current_user.id
-      if @member.save!
-          redirect_to '/user_profile'
-      else  
-          redirect_to '/institutions'
-      end         
-    end 
+  def create
+    member_credentials = credentials_to_array(credential_params)
+    atrium_member = create_atrium_member(member_params[:institution_code], member_credentials)
+    @member = Member.from_atrium_member(atrium_member, current_user.id)
+    if @member.save!
+      redirect_to '/users/show'
+    else  
+      redirect_to '/institutions'
+    end         
+  end 
 
-    def show 
-      @member_guid = member_params
-      poll_member_status(@member_guid, current_user.guid)
-    end 
+  def show 
+    @member_guid = member_params[:member_guid]
+    member_status(@member_guid, current_user.guid)
+  end 
 
-    private 
-    def create_atrium_member(code, creds, user_guid)
-      member_info = {:member => {:institution_code => code, :credentials => creds, :skip_aggregation => false}}
-      api_key = Rails.application.credentials.dig(:mx_api_key)
-      client_id = Rails.application.credentials.dig(:mx_client_id)
-      client = Atrium::AtriumClient.new("#{api_key}", "#{client_id}")
-      body = Atrium::MemberCreateRequestBody.new(member_info)
-      p body 
-      begin
-        #Create member
-        response = client.members.create_member(user_guid, body)
-        p response
-      rescue Atrium::ApiError => e
-        Rails.logger.info "Exception when calling MembersApi->create_member: #{e}"
-      end
-    end 
+private 
+  def create_atrium_member(institution_code, credentials)
+    member_info = {:member => {:institution_code => institution_code, :credentials => credentials, :skip_aggregation => false}}
+    body = Atrium::MemberCreateRequestBody.new(member_info)
+    member_response = client.members.create_member(current_user.guid, body)
+    member_response.member
+  rescue Atrium::ApiError => e
+    Rails.logger.info "Exception when calling MembersApi->create_member: #{e}"
+  end 
 
-    def get_institution_creds(code)
-        api_key = Rails.application.credentials.dig(:mx_api_key)
-        client_id = Rails.application.credentials.dig(:mx_client_id)
-        client = Atrium::AtriumClient.new("#{api_key}", "#{client_id}")
-        institution_code = code
-        begin
-          #Read institution credentials
-          response = client.institutions.read_institution_credentials(institution_code)
-          p response
-        rescue Atrium::ApiError => e
-          Rails.logger.info "Exception when calling InstitutionsApi->read_institution_credentials: #{e}"
-        end
-    end
+  def get_institution_credentials(institution_code)
+    institution_credentials_response = client.institutions.read_institution_credentials(institution_code)
+    institution_credentials_response.credentials
+  rescue Atrium::ApiError => e
+    Rails.logger.info "Exception when calling InstitutionsApi->read_institution_credentials: #{e}"
+  end
 
-    def member_params
-      params.require(:member_guid)
-    end 
+  def member_params
+    params.permit(:member_guid, :institution_code, :authenticity_token, :commit, :credentials, :id)
+  end 
 
-    def poll_member_status(member_guid,user_guid)
-      api_key = Rails.application.credentials.dig(:mx_api_key)
-      client_id = Rails.application.credentials.dig(:mx_client_id)
-      client = Atrium::AtriumClient.new("#{api_key}", "#{client_id}")
-      begin
-        #Read member connection status
-        response = client.members.read_member_status(member_guid, user_guid)
-        p response
-      rescue Atrium::ApiError => e
-        Rails.logger.info "Exception when calling MembersApi->read_member_status: #{e}"
-      end
-    end 
+  def credential_params
+    params.require(:credentials).permit!
+  end 
 
-  def credential_params(creds)
-    member_credentials = creds.values
-    institution_credentials = creds.keys
-    credentials = institution_credentials.zip(member_credentials)
-    newCred = []
-    for credential in credentials do 
-      newCred.push({:guid => credential[0], :value => credential[1]})
+  def member_status(member_guid,user_guid)
+    status_response = client.members.read_member_status(member_guid, user_guid)
+  rescue Atrium::ApiError => e
+    Rails.logger.info "Exception when calling MembersApi->read_member_status: #{e}"
+  end 
+
+  def credentials_to_array(credentials)
+    credential_array = []
+    credentials.each do |institution_credential, value| 
+        credential_array.push({ 
+          "guid" => institution_credential, 
+          "value"=> value
+        })
     end 
-    credentials = newCred
+    credential_array
   end 
 end

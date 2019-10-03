@@ -1,6 +1,6 @@
 <div class="container">
     <h1> User Guid </h1>
-    <%= @user_guid %>
+    <%= current_user.guid %>
     <h2>Memberships</h2>
     <% for @member in @members %>
         <% @institution = read_institution(@member.institution_code) %>
@@ -23,7 +23,7 @@
         <div class="button"> 
             <%= link_to "Add another account",{
                 :controller => "institutions",
-                :action => "list",
+                :action => "index",
                 :method => "get",
             } %>
         </div>
