@@ -8,7 +8,7 @@ class AccountsController < ApplicationController
  
   def read_account 
     account_response = client.accounts.read_account(account_params, current_user.guid)
-    account_response.account
+    account_response&.account
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling AccountsApi->read_account: #{e}"
   end 
@@ -16,7 +16,7 @@ class AccountsController < ApplicationController
   def list_transactions
     account_guid = params[:account_guid]
     transaction_response = client.accounts.list_account_transactions(account_guid, current_user.guid)
-    transaction_response.transactions
+    transaction_response&.transactions
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling AccountsApi->list_account_transactions: #{e}"
   end 

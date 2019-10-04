@@ -3,7 +3,7 @@
     <%= @institution_code %>
     <%= current_user.guid %>
     <div>
-        <%=form_with url: 'create' do |f| %>
+        <%=form_with url: '/members' do |f| %>
             <% for @credential in @institution_credentials %>
                 <%= f.label @credential.guid %>
                 <%= f.label @credential.label %>

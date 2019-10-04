@@ -17,24 +17,19 @@ class MembersController < ApplicationController
     end         
   end 
 
-  def show 
-    @member_guid = member_params[:member_guid]
-    member_status(@member_guid, current_user.guid)
-  end 
-
 private 
   def create_atrium_member(institution_code, credentials)
     member_info = {:member => {:institution_code => institution_code, :credentials => credentials, :skip_aggregation => false}}
     body = Atrium::MemberCreateRequestBody.new(member_info)
     member_response = client.members.create_member(current_user.guid, body)
-    member_response.member
+    member_response&.member
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling MembersApi->create_member: #{e}"
   end 
 
   def get_institution_credentials(institution_code)
     institution_credentials_response = client.institutions.read_institution_credentials(institution_code)
-    institution_credentials_response.credentials
+    institution_credentials_response&.credentials
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling InstitutionsApi->read_institution_credentials: #{e}"
   end
@@ -44,18 +39,12 @@ private
   end 
 
   def credential_params
-    params.require(:credentials).permit!
-  end 
-
-  def member_status(member_guid,user_guid)
-    status_response = client.members.read_member_status(member_guid, user_guid)
-  rescue Atrium::ApiError => e
-    Rails.logger.info "Exception when calling MembersApi->read_member_status: #{e}"
+    params.require(:credentials).permit!.to_h
   end 
 
   def credentials_to_array(credentials)
     credential_array = []
-    credentials.each do |institution_credential, value| 
+    credentials.map do |institution_credential, value| 
         credential_array.push({ 
           "guid" => institution_credential, 
           "value"=> value
