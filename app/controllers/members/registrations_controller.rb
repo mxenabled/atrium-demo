@@ -5,7 +5,7 @@ class Members::RegistrationsController < ApplicationController
   end 
 
   def create 
-      challenges = challenges_to_array(challenge_params)
+      challenges = challenges_to_array(challenges_hash)
       mfa_resume_agg(params[:member_guid], challenges)
   end 
 
