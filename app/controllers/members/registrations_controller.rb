@@ -33,13 +33,11 @@ private
   end 
 
   def challenges_to_array(challenges)
-    challenges_array = []
     challenges.map do |challenge_guid, value| 
-      challenges_array.push({ 
+      { 
         "guid" => challenge_guid, 
         "value"=> value
-      })
+      }
     end 
-    challenges_array
   end 
 end

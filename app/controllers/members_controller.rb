@@ -43,13 +43,11 @@ private
   end 
 
   def credentials_to_array(credentials)
-    credential_array = []
     credentials.map do |institution_credential, value| 
-        credential_array.push({ 
-          "guid" => institution_credential, 
-          "value"=> value
-        })
+      { 
+        "guid" => institution_credential, 
+        "value"=> value
+      }
     end 
-    credential_array
   end 
 end
