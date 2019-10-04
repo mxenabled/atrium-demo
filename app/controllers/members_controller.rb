@@ -27,6 +27,19 @@ private
     Rails.logger.info "Exception when calling MembersApi->create_member: #{e}"
   end 
 
+  def credential_params
+    params.require(:credentials).permit!.to_h
+  end 
+  
+  def credentials_to_array(credentials)
+    credentials.map do |institution_credential, value| 
+      { 
+        "guid" => institution_credential, 
+        "value"=> value
+      }
+    end 
+  end 
+
   def get_institution_credentials(institution_code)
     institution_credentials_response = client.institutions.read_institution_credentials(institution_code)
     institution_credentials_response&.credentials
@@ -36,18 +49,5 @@ private
 
   def member_params
     params.permit(:member_guid, :institution_code, :authenticity_token, :commit, :credentials, :id)
-  end 
-
-  def credential_params
-    params.require(:credentials).permit!.to_h
-  end 
-
-  def credentials_to_array(credentials)
-    credentials.map do |institution_credential, value| 
-      { 
-        "guid" => institution_credential, 
-        "value"=> value
-      }
-    end 
   end 
 end

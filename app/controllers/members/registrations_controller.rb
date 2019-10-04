@@ -16,18 +16,6 @@ private
     Rails.logger.info "Exception when calling MembersApi->aggregate_member: #{e}"
     end 
 
-  def mfa_resume_agg(member_guid, challenges)
-    member_info = {:member => {:challenges => challenges}}
-    body = Atrium::MemberResumeRequestBody.new(member_info)
-    resume_aggregation_response = client.members.resume_member(member_guid, current_user.guid, body)
-  rescue Atrium::ApiError => e
-    Rails.logger.info "Exception when calling MembersApi->resume_member: #{e}"
-  end 
-
-  def registration_params
-    params.permit(:member_guid)
-  end 
-
   def challenges_hash
     params.require(:challenges).permit!.to_h
   end 
@@ -39,5 +27,17 @@ private
         "value"=> value
       }
     end 
+  end 
+
+  def mfa_resume_agg(member_guid, challenges)
+    member_info = {:member => {:challenges => challenges}}
+    body = Atrium::MemberResumeRequestBody.new(member_info)
+    resume_aggregation_response = client.members.resume_member(member_guid, current_user.guid, body)
+  rescue Atrium::ApiError => e
+    Rails.logger.info "Exception when calling MembersApi->resume_member: #{e}"
+  end 
+
+  def registration_params
+    params.permit(:member_guid)
   end 
 end

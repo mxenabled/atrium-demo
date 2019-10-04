@@ -4,14 +4,11 @@ class AccountsController < ApplicationController
     @transactions = list_transactions
   end
 
-  private 
+private 
  
-  def read_account 
-    account_response = client.accounts.read_account(account_params, current_user.guid)
-    account_response&.account
-  rescue Atrium::ApiError => e
-    Rails.logger.info "Exception when calling AccountsApi->read_account: #{e}"
-  end 
+  def account_params
+    params.require(:account_guid)
+  end
 
   def list_transactions
     account_guid = params[:account_guid]
@@ -21,7 +18,10 @@ class AccountsController < ApplicationController
     Rails.logger.info "Exception when calling AccountsApi->list_account_transactions: #{e}"
   end 
 
-  def account_params
-    params.require(:account_guid)
-  end
+  def read_account 
+    account_response = client.accounts.read_account(account_params, current_user.guid)
+    account_response&.account
+  rescue Atrium::ApiError => e
+    Rails.logger.info "Exception when calling AccountsApi->read_account: #{e}"
+  end 
 end
