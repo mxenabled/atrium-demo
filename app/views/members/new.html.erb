@@ -1,16 +1,15 @@
 <div class="container">
     <h2>Members New</h2>
-    <%= @code %>
+    <%= @institution_code %>
     <%= current_user.guid %>
     <div>
-        <%=form_with url: '/atrium_member' do |f| %>
+        <%=form_with url: '/members' do |f| %>
             <% for @credential in @institution_credentials %>
                 <%= f.label @credential.guid %>
                 <%= f.label @credential.label %>
                 <%= f.text_field "credentials[#{@credential.guid}]" %>
                 <% end %>
-                <%= f.hidden_field 'user_guid', :value => current_user.guid %>
-                <%= f.hidden_field 'institution_code', :value => @code %>
+                <%= f.hidden_field 'institution_code', :value => @institution_code %>
             <%= f.submit "create member" %>
         <% end %>
     </div>

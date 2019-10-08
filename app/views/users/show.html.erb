@@ -1,19 +1,20 @@
 <div class="container">
     <h1> User Guid </h1>
-    <%= @user_guid %>
+    <%= current_user.guid %>
     <h2>Memberships</h2>
     <% for @member in @members %>
-        <% @institution = read_institution(@member.institution_code) %>
-        <%= "Membership at #{@institution.institution.name}" %>
+        <% @institution ||= read_institution(@member.institution_code) %>
+        <% accounts ||= get_member_accounts(@member.guid) %>
+        <%= "Membership at #{@institution.name}" %>
         <div class="box"> 
-            <% for @account in @accounts %>
+            <% for account in accounts %>
                 <div class="button">
-                    <%= link_to "#{@account.name} - Balance: #{@account.balance}",{
+                    <%= link_to "#{account.name} - Balance: #{account.balance}",{
                         :controller => "accounts",
                         :action => "show",
                         :method => "get",
-                        :account_guid => @account.guid,
-                        :institution_code => @account.institution_code
+                        :account_guid => account.guid,
+                        :institution_code => account.institution_code
                     } %>
                 </div>
                 <% end %>
@@ -23,10 +24,9 @@
         <div class="button"> 
             <%= link_to "Add another account",{
                 :controller => "institutions",
-                :action => "list",
+                :action => "index",
                 :method => "get",
             } %>
         </div>
     </div>
 </div>
-
