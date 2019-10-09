@@ -30,7 +30,7 @@ private
   def credential_params
     params.require(:credentials).permit!.to_h
   end 
-  
+
   def credentials_to_array(credentials)
     credentials.map do |institution_credential, value| 
       { 
