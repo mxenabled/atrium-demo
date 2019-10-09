@@ -1,17 +1,5 @@
 <div class="container"> 
-    <h2>Whatever</h2>
     <div>
-    <% for @institution in @institutions %>
-    <div class="button">
-        <img src='<%=@institution.small_logo_url %>'>
-        <%= link_to "#{@institution.name}",{
-            :controller => "members",
-            :action => "new",
-            :method => "get",
-            :institution_code => @institution.code
-        } %>
-        </div>
-        <%= link_to root_path %>
-    <% end %>
+        <%= render partial: 'institution', collection: @institutions %>
     </div>
 </div>

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :members, :only => [:new, :create, :show]
   resources :users, :only => [:create, :show]
 
+
   root  'static_pages#home' 
   get   '/home',             to: 'static_pages#home'
+  post  '/members/registrations/resume',               to: 'members/registrations#create'
 end

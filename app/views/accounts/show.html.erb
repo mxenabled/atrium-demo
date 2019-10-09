@@ -18,25 +18,17 @@
     </nav>
 
     <table class="table is-fullwidth" id="transaction-table">
-        <% for @transaction in @transactions %>
-            <tr class="transaction-row">
-            <% @date = date_fix(@transaction.date) %>
-                <td class="date"><%= @date %></td>
-                <td class="description"><%= "#{@transaction.description}" %></td>
-                <td class="amount"><%=  "$#{@transaction.amount}" %></td>
-                <td class="category"><%= " #{@transaction.category}" %></td>
-                <td class="status"><% if @transaction.status == "PENDING" %>
-                    <span class="pending"> Pending Transaction </span>
-                <% end %></td>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Category</th>
             </tr>
-        <% end %>
+        </thead>
+        <tbody>
+            <%= render partial: 'transaction', collection: @transactions %>
+        </tbody>
     </table>
-
-    <div class="button"> 
-        <%= link_to "Back",{
-            :controller => "users",
-            :action => "show",
-            :method => "get",
-        } %>
-    </div>
+    <%= render 'shared/profile_button' %>
 </div>

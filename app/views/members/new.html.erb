@@ -1,15 +1,9 @@
 <div class="container">
-    <h2>Members New</h2>
-    <%= @institution_code %>
     <%= current_user.guid %>
     <div>
         <%=form_with url: '/members' do |f| %>
-            <% for @credential in @institution_credentials %>
-                <%= f.label @credential.guid %>
-                <%= f.label @credential.label %>
-                <%= f.text_field "credentials[#{@credential.guid}]" %>
-                <% end %>
-                <%= f.hidden_field 'institution_code', :value => @institution_code %>
+            <%= render partial: 'institution_credential', collection: @institution_credentials, locals: {f:f} %>
+            <%= f.hidden_field 'institution_code', :value => @institution_code %>
             <%= f.submit "create member" %>
         <% end %>
     </div>

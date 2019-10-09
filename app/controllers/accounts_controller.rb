@@ -19,7 +19,7 @@ private
   end 
 
   def read_account 
-    account_response = client.accounts.read_account(account_params[:account_guid], current_user.guid)
+    account_response = client.accounts.read_account(account_params, current_user.guid)
     account_response&.account
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling AccountsApi->read_account: #{e}"
