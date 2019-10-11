@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end 
 
   def show
-    @members ||= members_payload(current_user.members.all)
+    @members ||= members_body(current_user.members.all)
   end 
 
 private 
@@ -47,7 +47,7 @@ private
     Rails.logger.info "Exception when calling InstitutionsApi->read_institution: #{e}"
   end
   
-  def members_payload(members)
+  def members_body(members)
     members.map do |member|
       institution = read_institution(member.institution_code)
       accounts = accounts_body(member.guid)
