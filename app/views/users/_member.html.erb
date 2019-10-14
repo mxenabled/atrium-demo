@@ -1,0 +1,9 @@
+
+<div>
+    <% member = member[:member] %>
+    <%= "Membership at #{member[:institution_name]}" %>
+    <img src=<%= member[:institution_logo]%> />
+    <div class="box"> 
+        <%= render partial: 'account', collection: member[:accounts] %>   
+    </div>
+</div>

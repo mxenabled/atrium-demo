@@ -1,0 +1,8 @@
+<div class="button">
+    <%= link_to "#{account[:name]} - Balance: #{account[:balance]}",{
+        :controller => "accounts",
+        :action => "show",
+        :method => "get",
+        :account_guid => account[:guid]
+    } %>
+</div>

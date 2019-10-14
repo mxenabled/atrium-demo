@@ -7,7 +7,7 @@ class MembersController < ApplicationController
   end 
 
   def create
-    member_credentials = credentials_to_array(credential_params)
+    member_credentials = credentials_to_array(member_params[:credentials].to_h)
     atrium_member = create_atrium_member(member_params[:institution_code], member_credentials)
     @member = Member.from_atrium_member(atrium_member, current_user.id)
     if @member.save!
@@ -27,10 +27,6 @@ private
     Rails.logger.info "Exception when calling MembersApi->create_member: #{e}"
   end 
 
-  def credential_params
-    params.require(:credentials).permit!.to_h
-  end 
-  
   def credentials_to_array(credentials)
     credentials.map do |institution_credential, value| 
       { 
@@ -48,6 +44,6 @@ private
   end
 
   def member_params
-    params.permit(:member_guid, :institution_code, :authenticity_token, :commit, :credentials, :id)
+    params.permit(:member_guid, :institution_code, :authenticity_token, :commit, :id, credentials: {})
   end 
 end
