@@ -2,9 +2,13 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def create
+    if current_user.guid.nil?
     @atrium_user = create_atrium_user
     current_user.update_attribute(:guid, @atrium_user.guid)
     redirect_to :action => "index", :controller => "institutions"
+    else 
+      redirect_to :action => "show", :id => current_user.id
+    end 
   end 
 
   def show
@@ -32,29 +36,18 @@ private
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling UsersApi->create_user: #{e}"
   end 
-
-  def get_member_accounts(member_guid)
-    accounts_response = client.members.list_member_accounts(member_guid, current_user.guid)
-    accounts_response&.accounts
-  rescue Atrium::ApiError => e
-    Rails.logger.info "Exception when calling MembersApi->list_member_accounts: #{e}"
-  end 
-
-  def read_institution(institution_code)
-    institution_response = client.institutions.read_institution(institution_code)
-    institution_response&.institution
-  rescue Atrium::ApiError => e
-    Rails.logger.info "Exception when calling InstitutionsApi->read_institution: #{e}"
-  end
   
   def members_body(members)
     members.map do |member|
+      member_status = read_member_status(member.guid)
       institution = read_institution(member.institution_code)
       accounts = accounts_body(member.guid)
       { :member => {
         :member_guid => member.guid,
+        :member_id => member.id,
         :institution_name => institution.name,
         :institution_logo => institution.small_logo_url,
+        :connection_status => member_status.connection_status,
         :accounts => accounts
         }
       }

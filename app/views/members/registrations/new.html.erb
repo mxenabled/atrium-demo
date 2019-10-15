@@ -1,7 +1,8 @@
 <div>
     <%= @member_guid %>
-    <%=form_with url: '/members/registrations/resume' do |f| %>
+    <%=form_with url: member_registrations_path(@member_id) do |f| %>
         <%= render partial: 'challenge', collection: @challenges, locals: {f:f} %>
+        <%= f.hidden_field 'member_guid', :value => @member_guid %>
         <%= f.submit "Submit" %>
     <% end %>
 </div>

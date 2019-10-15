@@ -1,8 +1,4 @@
-<h1> SHOW </h1>
-<div class="button"> 
-    <%= link_to "Home",{
-        :controller => "users",
-        :action => "profile",
-        :method => "get",
-    } %>
-</div>
+<%= @member_guid %>
+<%= @connection_status %>
+<%= render 'shared/profile_button' %>
+<%= render "shared/statuses/#{@connection_status.downcase!}" rescue nil %>
