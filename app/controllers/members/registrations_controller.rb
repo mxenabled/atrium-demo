@@ -2,7 +2,7 @@ class Members::RegistrationsController < ApplicationController
   def new
     challenge_questions = registration_params[:challenge_questions]
     @challenges = challenges_conversion(challenge_questions)
-    p @member_id = registration_params[:member_id]
+    @member_id = registration_params[:member_id]
     @member_guid = get_member_guid(@member_id)
   end 
 
