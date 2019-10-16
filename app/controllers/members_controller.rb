@@ -39,7 +39,6 @@ class MembersController < ApplicationController
     redirect_to user_path(current_user.id)
   end 
 
-
 private 
 
   def create_atrium_member(institution_code, credentials)
