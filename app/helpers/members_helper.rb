@@ -2,7 +2,7 @@ module MembersHelper
   def status_messages(connection_status)
     case connection_status
     when "CHALLENGED"
-      "To authenticate your membership please go to 'resolve issues' and answer the challenges!"
+      "Your account requires further verification! To authenticate your membership please go to 'resolve issues' and answer the challenges!"
     when "CLOSED"
       "Your membership has been marked as closed! If it becomes re-opened you may import the membership"
     when "DEGRADED"
