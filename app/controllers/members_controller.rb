@@ -19,8 +19,8 @@ class MembersController < ApplicationController
   end 
 
   def show
-    member = Member.find(member_params[:member_id])
-    member_status = read_member_status(member.guid)
+    member_guid = get_member_guid(member_params[:member_id])
+    member_status = read_member_status(member_guid)
     @connection_status = member_status.connection_status
   end 
 
@@ -33,12 +33,12 @@ class MembersController < ApplicationController
 
   def update 
     member_guid = get_member_guid(member_params[:id])
-    p updated_credentials = credentials_to_array(member_params[:credentials].to_h)
+    updated_credentials = credentials_to_array(member_params[:credentials].to_h)
     update_member_credentials(member_guid, updated_credentials)
     aggregate_member(member_guid)
     redirect_to user_path(current_user.id)
   end 
-
+  
 private 
 
   def create_atrium_member(institution_code, credentials)
