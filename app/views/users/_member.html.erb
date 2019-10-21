@@ -4,19 +4,14 @@
     <%= "Membership at #{member[:institution_name]}" %>
     <img src=<%= member[:institution_logo]%> />
     <%= member[:connection_status] %>
+    <%= member_message(member[:connection_status]) %>
     <div class="button"> 
-        <%= link_to "View Membership", member_path(:member_id => member[:member_id])  %>
-    </div>
-    <% if member[:connection_status] != "CONNECTED" %>
-        <% if member[:connection_status] == "RESUMED" || member[:connection_status] == "CREATED" || member[:connection_status] == "UPDATED" %>
-            <%= "Please wait while we finish importing all of your membership data!" %>
+        <% if member_has_issues(member[:connection_status]) %>
+            <%= link_to "Resolve Issues", registrations_show_path(:member_id => member[:member_id]) %>
         <% else %>
-            <%= "Whoops! It looks like there were some issues when trying to import your membership!" %>
-            <div class="button"> 
-                <%= link_to "Resolve Issues", registrations_show_path(:member_id => member[:member_id]) %>
-            </div>
-            <% end %>
+            <%= link_to "View Membership", member_path(:member_id => member[:member_id]) %>
         <% end %>
+    </div>
     <div class="box"> 
         <%= render partial: 'account', collection: member[:accounts] %>   
     </div>
