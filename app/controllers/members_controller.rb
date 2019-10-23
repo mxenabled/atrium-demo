@@ -27,6 +27,13 @@ private
     Rails.logger.info "Exception when calling MembersApi->create_member: #{e}"
   end 
 
+  def get_institution_credentials(institution_code)
+    institution_credentials_response = client.institutions.read_institution_credentials(institution_code)
+    institution_credentials_response&.credentials
+  rescue Atrium::ApiError => e
+    Rails.logger.info "Exception when calling InstitutionsApi->read_institution_credentials: #{e}"
+  end
+
   def member_params
     params.permit(:member_guid, :institution_code, :authenticity_token, :commit, :id, credentials: {})
   end 

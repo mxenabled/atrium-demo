@@ -17,13 +17,6 @@ class ApplicationController < ActionController::Base
     @client_id ||= Rails.application.credentials.dig(:mx_client_id)
   end 
 
-  def get_institution_credentials(institution_code)
-    institution_credentials_response = client.institutions.read_institution_credentials(institution_code)
-    institution_credentials_response&.credentials
-  rescue Atrium::ApiError => e
-    Rails.logger.info "Exception when calling InstitutionsApi->read_institution_credentials: #{e}"
-  end
-
   def get_member_accounts(member_guid)
     accounts_response = client.members.list_member_accounts(member_guid, current_user.guid)
     accounts_response&.accounts
