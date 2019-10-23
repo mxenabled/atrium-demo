@@ -17,6 +17,15 @@ class ApplicationController < ActionController::Base
     @client_id ||= Rails.application.credentials.dig(:mx_client_id)
   end 
 
+  def credentials_to_array(credentials)
+    credentials.map do |credential_guid, value|
+      {
+        "guid" => credential_guid,
+        "value"=> value
+      }
+    end
+  end
+
   def get_member_accounts(member_guid)
     accounts_response = client.members.list_member_accounts(member_guid, current_user.guid)
     accounts_response&.accounts
@@ -41,14 +50,5 @@ class ApplicationController < ActionController::Base
     member_status_response&.member
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling MembersApi->read_member_status: #{e}"
-  end 
-
-  def credentials_to_array(credentials)
-    credentials.map do |credential_guid, value| 
-      { 
-        "guid" => credential_guid, 
-        "value"=> value
-      }
-    end 
-  end 
+  end
 end
