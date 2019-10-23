@@ -42,7 +42,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 protected
   def create_atrium_user
-    userInfo = {:user => {:identifier => SecureRandom.uuid}}
+    user_info = {:user => {:identifier => SecureRandom.uuid}}
     body = Atrium::UserCreateRequestBody.new(userInfo) 
     atrium_user = client.users.create_user(body)
     atrium_user&.user
