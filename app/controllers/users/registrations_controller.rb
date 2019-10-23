@@ -12,7 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #POST /resource
   def create
     super 
-    p atrium_user = create_atrium_user
+    atrium_user = create_atrium_user
     current_user.update_attribute(:guid, atrium_user.guid)
   end
 
@@ -41,14 +41,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
 protected
-    def create_atrium_user
-      userInfo = {:user => {:identifier => SecureRandom.uuid}}
-      body = Atrium::UserCreateRequestBody.new(userInfo) 
-      atrium_user = client.users.create_user(body)
-      atrium_user&.user
-    rescue Atrium::ApiError => e
-      Rails.logger.info "Exception when calling UsersApi->create_user: #{e}"
-    end 
+  def create_atrium_user
+    userInfo = {:user => {:identifier => SecureRandom.uuid}}
+    body = Atrium::UserCreateRequestBody.new(userInfo) 
+    atrium_user = client.users.create_user(body)
+    atrium_user&.user
+  rescue Atrium::ApiError => e
+    Rails.logger.info "Exception when calling UsersApi->create_user: #{e}"
+  end 
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params

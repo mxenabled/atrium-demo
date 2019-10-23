@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   end 
 
 private 
-
   def accounts_body(member_guid)
     accounts = get_member_accounts(member_guid)
     accounts.map do |account|
@@ -17,7 +16,7 @@ private
       }
     end 
   end 
-  
+
   def members_body(members)
     members.map do |member|
       institution = read_institution(member.institution_code)
