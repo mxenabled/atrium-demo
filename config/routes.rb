@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :accounts, :only => [:show]
   resources :institutions, :only => [:index]
   resources :members, :only => [:new, :create, :show]
-  resources :users, :only => [:create, :show]
+  resources :users, :only => [:show]
 
 
   root  'static_pages#home' 
