@@ -15,7 +15,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     atrium_user = create_atrium_user
     current_user.update_attribute(:guid, atrium_user.guid)
   end
+<<<<<<< HEAD
 
+=======
+>>>>>>> 127d636b937b02bf7cd1e8f16de7ec2ea99b6a8b
 
   # GET /resource/edit
   # def edit
@@ -41,7 +44,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+<<<<<<< HEAD
   protected
+=======
+protected
+>>>>>>> 127d636b937b02bf7cd1e8f16de7ec2ea99b6a8b
   def create_atrium_user
     user_info = {:user => {:identifier => SecureRandom.uuid}}
     body = Atrium::UserCreateRequestBody.new(userInfo) 

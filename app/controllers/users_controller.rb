@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   end 
 
 private 
-
   def accounts_body(member_guid)
     accounts = get_member_accounts(member_guid)
     accounts.map do |account|
