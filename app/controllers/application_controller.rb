@@ -16,12 +16,14 @@ class ApplicationController < ActionController::Base
   def client_id
     @client_id ||= Rails.application.credentials.dig(:mx_client_id)
   end 
-  
-  def get_institution_credentials(institution_code)
-    institution_credentials_response = client.institutions.read_institution_credentials(institution_code)
-    institution_credentials_response&.credentials
-  rescue Atrium::ApiError => e
-    Rails.logger.info "Exception when calling InstitutionsApi->read_institution_credentials: #{e}"
+
+  def credentials_to_array(credentials)
+    credentials.map do |credential_guid, value|
+      {
+        "guid" => credential_guid,
+        "value"=> value
+      }
+    end
   end
 
   def get_member_accounts(member_guid)
@@ -48,14 +50,5 @@ class ApplicationController < ActionController::Base
     member_status_response&.member
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling MembersApi->read_member_status: #{e}"
-  end 
-
-  def credentials_to_array(credentials)
-    credentials.map do |credential_guid, value| 
-      { 
-        "guid" => credential_guid, 
-        "value"=> value
-      }
-    end 
-  end 
+  end
 end

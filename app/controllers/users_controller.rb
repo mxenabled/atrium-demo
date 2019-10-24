@@ -1,16 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
-  def create
-    if current_user.guid.nil?
-    @atrium_user = create_atrium_user
-    current_user.update_attribute(:guid, @atrium_user.guid)
-    redirect_to :action => "index", :controller => "institutions"
-    else 
-      redirect_to :action => "show", :id => current_user.id
-    end 
-  end 
-
   def show
     @members ||= members_body(current_user.members.all)
   end 
@@ -28,15 +18,6 @@ private
     end 
   end 
 
-  def create_atrium_user
-    userInfo = {:user => {:identifier => SecureRandom.uuid}}
-    body = Atrium::UserCreateRequestBody.new(userInfo) 
-    atrium_user = client.users.create_user(body)
-    atrium_user&.user
-  rescue Atrium::ApiError => e
-    Rails.logger.info "Exception when calling UsersApi->create_user: #{e}"
-  end 
-  
   def members_body(members)
     members.map do |member|
       member_status = read_member_status(member.guid)
