@@ -1,14 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users 
+  devise_for :users, :controllers => {:registrations => "users/registrations"}
 
   as :user do
-    get 'user', :to => 'users#create', :as => :user_root
+    get 'user', :to => 'users#show', :as => :user_root
   end
-
   resources :accounts, :only => [:show]
   resources :institutions, :only => [:index]
   resources :members, :only => [:new, :create, :show]
-  resources :users, :only => [:create, :show]
+  resources :users, :only => [:show]
 
 
   root  'static_pages#home' 
