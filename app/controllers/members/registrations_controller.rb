@@ -12,7 +12,7 @@ class Members::RegistrationsController < ApplicationController
     redirect_to '/users/show'
   end 
 
-  def show
+  def edit
     member_guid = get_member_guid(registration_params[:member_id])
     member_status = read_member_status(member_guid)
     handle_connection_status(member_status, member_guid, registration_params[:member_id])

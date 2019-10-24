@@ -11,10 +11,10 @@ Rails.application.routes.draw do
 
   resources :accounts, :only => [:show]
   resources :institutions, :only => [:index]
-  resources :git users, :only => [:show]
+  resources :users, :only => [:show]
   
   root  'static_pages#home' 
   get  '/home',                  to: 'static_pages#home'
   get  '/registrations/new',     to: 'members/registrations#new'
-  get  '/registrations/show',    to: 'members/registrations#show'
+  get  '/registrations/edit',    to: 'members/registrations#edit'
 end

@@ -7,12 +7,11 @@ class AccountsController < ApplicationController
 private 
  
   def account_params
-    params.require(:account_guid)
+    params.permit(:account_guid, :method, :id)
   end
 
   def list_transactions
-    account_guid = account_params[:account_guid]
-    transaction_response = client.accounts.list_account_transactions(account_guid, current_user.guid)
+    transaction_response = client.accounts.list_account_transactions(account_params[:account_guid], current_user.guid)
     transaction_response&.transactions
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling AccountsApi->list_account_transactions: #{e}"

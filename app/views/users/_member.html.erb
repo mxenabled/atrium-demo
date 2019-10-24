@@ -6,7 +6,7 @@
     <%= member_message(member[:connection_status]) %>
     <div class="button"> 
         <% if member_has_issues(member[:connection_status]) %>
-            <%= link_to "Resolve Issues", registrations_show_path(:member_id => member[:member_id]) %>
+            <%= link_to "Resolve Issues", registrations_edit_path(:member_id => member[:member_id]) %>
         <% else %>
             <%= link_to "View Membership", member_path(:member_id => member[:member_id]) %>
         <% end %>
