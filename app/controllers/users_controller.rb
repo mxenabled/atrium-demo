@@ -24,7 +24,7 @@ private
       accounts = accounts_body(member.guid)
       { :member => {
         :member_guid => member.guid,
-        :member_id => member.id,
+        :id => member.id,
         :institution_name => institution.name,
         :institution_logo => institution.small_logo_url,
         :connection_status => member_status.connection_status,

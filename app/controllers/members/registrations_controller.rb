@@ -2,7 +2,7 @@ class Members::RegistrationsController < ApplicationController
   def new
     challenge_questions = registration_params[:challenge_questions]
     @challenges = challenges_conversion(challenge_questions)
-    @member_id = registration_params[:member_id]
+    @member_id = registration_params[:id]
     @member_guid = get_member_guid(@member_id)
   end 
 
@@ -13,9 +13,9 @@ class Members::RegistrationsController < ApplicationController
   end 
 
   def edit
-    member_guid = get_member_guid(registration_params[:member_id])
+    member_guid = get_member_guid(registration_params[:id])
     member_status = read_member_status(member_guid)
-    handle_connection_status(member_status, member_guid, registration_params[:member_id])
+    handle_connection_status(member_status, member_guid, registration_params[:id])
   end 
 
 private
@@ -31,7 +31,7 @@ private
     when "CONNECTED", "RESUMED", "CREATED"
       redirect_to user_path(current_user.id)
     when "CHALLENGED"
-      redirect_to new_member_registration_path(:member_id => member_id, :challenge_questions => member_status.challenges)
+      redirect_to new_member_registration_path(:id => member_id, :challenge_questions => member_status.challenges)
     when "EXPIRED", "RECONNECTED"
       aggregate_member(member_guid)
       poll_member_status(member_guid, member_id)
@@ -60,7 +60,7 @@ private
   end   
 
   def registration_params
-    params.permit(:member_guid, :member_id, :authenticity_token, :commit, :challenge_questions => [], :challenges => {})
+    params.permit(:member_guid, :id, :authenticity_token, :commit, :challenge_questions => [], :challenges => {})
   end 
 
   def resume_aggregation(member_guid, challenges)
