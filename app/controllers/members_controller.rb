@@ -20,7 +20,7 @@ class MembersController < ApplicationController
 
   def show
     member_status = read_member_status(member_guid)
-    @connection_status = member_status.connection_status
+    @connection_status = ConnectionStatus.find_by_name(member_status.connection_status)
   end 
   
 private 

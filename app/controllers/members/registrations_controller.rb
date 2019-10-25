@@ -19,24 +19,41 @@ class Members::RegistrationsController < ApplicationController
   end 
 
 private
+
+  def bad_credentials_status(status, member_guid, member_id)
+    aggregate_member(member_guid)
+    poll_member_status(member_guid, member_id)
+  end  
+
+  def challenged_status(status, member_id, challenges)
+    redirect_to new_member_registration_path(:id => member_id, :challenge_questions => member_status.challenges)
+  end 
+
   def challenges_conversion(challenge_questions) 
     challenge_questions.map do |challenge|
         eval(challenge)
     end
   end 
   
+  def clean_status(status)
+    redirect_to user_path(current_user.id)
+  end 
+
+  def display_message_status(member_id)
+    redirect_to member_path(member_id)
+  end   
+
   def handle_connection_status(member_status, member_guid, member_id)
-    member_status.connection_status
-    case member_status.connection_status
+    connection_status = member_status.connection_status
+    case connection_status
     when "CONNECTED", "RESUMED", "CREATED"
-      redirect_to user_path(current_user.id)
+      clean_status(connection_status)
     when "CHALLENGED"
-      redirect_to new_member_registration_path(:id => member_id, :challenge_questions => member_status.challenges)
+      challenged_status(connection_status, member_id, member_status.challenges)
     when "EXPIRED", "RECONNECTED"
-      aggregate_member(member_guid)
-      poll_member_status(member_guid, member_id)
+      bad_credentials_status(connection_status, member_guid, member_id)
     else 
-      redirect_to member_path(member_id)
+      display_message_status(member_id)
     end
   end 
 
@@ -68,8 +85,4 @@ private
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling MembersApi->resume_member: #{e}"
   end 
-end
-
-
-
-    
+end 

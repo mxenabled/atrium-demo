@@ -2,14 +2,12 @@
     <% member = member[:member] %>
     <%= "Membership at #{member[:institution_name]}" %>
     <img src=<%= member[:institution_logo]%> />
-    <%= member[:connection_status] %>
-    <%= member_message(member[:connection_status]) %>
+
     <div class="button"> 
-        <% if member_has_issues(member[:connection_status]) %>
             <%= link_to "Resolve Issues", registrations_edit_path(:id => member[:id]) %>
-        <% else %>
+            </div>
+    <div class="button">
             <%= link_to "View Membership", member_path(:id => member[:id]) %>
-        <% end %>
     </div>
     <div class="box"> 
         <%= render partial: 'account', collection: member[:accounts] %>   
