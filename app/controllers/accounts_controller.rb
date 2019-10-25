@@ -7,7 +7,11 @@ class AccountsController < ApplicationController
 private 
  
   def account_params
+<<<<<<< HEAD
     params.permit(:account_guid, :method, :id)
+=======
+    params.permit(:account_guid)
+>>>>>>> 951fa91a987dc1c4e947c2f8994bee2105bb4619
   end
 
   def list_transactions
