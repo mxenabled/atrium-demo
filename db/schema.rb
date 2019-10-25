@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2019_10_14_161402) do
+=======
+ActiveRecord::Schema.define(version: 2019_10_25_164315) do
+>>>>>>> 7352891abe6cae08c09fdb26edda751583b1c550
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "connection_statuses", force: :cascade do |t|
+    t.string "name"
+    t.string "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "institutions", force: :cascade do |t|
     t.string "code"
