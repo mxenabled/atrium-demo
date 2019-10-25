@@ -7,7 +7,7 @@ class AccountsController < ApplicationController
 private 
  
   def account_params
-    params.require(:account_guid)
+    params.permit(:account_guid)
   end
 
   def list_transactions
