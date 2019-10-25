@@ -1,0 +1,2 @@
+class ConnectionStatus < ApplicationRecord
+end
