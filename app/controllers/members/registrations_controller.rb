@@ -35,8 +35,6 @@ private
     when "EXPIRED", "RECONNECTED"
       aggregate_member(member_guid)
       poll_member_status(member_guid, member_id)
-    when "IMPORTED", "DENIED", "PREVENTED", "FAILED"
-      redirect_to edit_member_path(:id => member_id)
     else 
       redirect_to member_path(member_id)
     end
@@ -71,3 +69,7 @@ private
     Rails.logger.info "Exception when calling MembersApi->resume_member: #{e}"
   end 
 end
+
+
+
+    
