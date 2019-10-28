@@ -1,7 +1,7 @@
-<div class="box">
-    <div class="card">
+<div class="box is-dark-gray member-box">
+    <div class="card is-dark-gray no-shadow">
         <% member = member[:member] %>
-        <div class="card-content">
+        <div class="card-content member-card">
             <div class="media">
                 <div class="media-left">
                     <figure class="image is-48x48">
@@ -9,19 +9,23 @@
                     </figure>
                 </div>
                 <div class="media-content">
-                    <p class="title is-4"><%= member[:institution_name] %></p>
+                    <p class="title is-4 has-text-white"><%= member[:institution_name] %></p>
                 </div>
                 <div class="media-right">
-                    <div class="button"> 
-                            <%= link_to "Resolve Issues", registrations_edit_path(:id => member[:id]) %>
+                    <div class="button is-medium-gray has-text-white"> 
+                            <%= link_to "Resolve Issues", registrations_edit_path(:id => member[:id]), class: "has-text-white" %>
                             </div>
-                    <div class="button">
-                            <%= link_to "View Membership", member_path(:id => member[:id]) %>
+                    <div class="button is-medium-gray has-text-white">
+                            <%= link_to "View Membership", member_path(:id => member[:id]), class: "has-text-white"  %>
                     </div>
                 </div>
             </div>
-            <div class="box"> 
-                <%= render partial: 'account', collection: member[:accounts] %>   
+            <div class="box is-medium-gray"> 
+                <table id="accounts-table">
+                    <tbody class="accounts-body">
+                        <%= render partial: 'account', collection: member[:accounts] %>   
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

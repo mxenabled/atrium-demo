@@ -1,13 +1,14 @@
  @import "bulma";
 
  html,body {
-   background-color: #242424;
+   background-color: #2c2e2f;
    color: white;
   }
 
   .table, tr, td {
-    background-color: #3a3a3a;
-    border: 0;
+    background-color: transparent;
+    color: white;
+    border: none;
   }
 
 .institution-link {
@@ -20,4 +21,39 @@
 
 .institution-button {
   margin-top: 3%;
+}
+
+.is-medium-gray {
+  background-color: #2b2d2d;
+}
+
+.is-dark-gray {
+  background-color: #212324;
+}
+
+.is-light-gray{
+  background-color: #424648
+}
+
+#accounts-table {
+  width: 80%;
+  margin: 0px auto;
+}
+
+.account-button{
+  margin-bottom: 3%;
+}
+
+.member-card {
+  width: 50%;
+  margin: 0px auto;
+}
+
+.no-shadow {
+  box-shadow: none;
+}
+
+.member-box {
+  margin-left: 20%;
+  margin-right: 20%;
 }
