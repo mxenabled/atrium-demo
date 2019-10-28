@@ -33,8 +33,8 @@ class ApplicationController < ActionController::Base
     Rails.logger.info "Exception when calling MembersApi->list_member_accounts: #{e}"
   end 
 
-  def get_member_guid(member_id)
-    member = Member.find(member_id) 
+  def get_member_guid(id)
+    member = Member.find(id) 
     member&.guid
   end 
 
