@@ -26,7 +26,7 @@ private
   end  
 
   def challenged_status(status, member_id, challenges)
-    redirect_to new_member_registration_path(:id => member_id, :challenge_questions => member_status.challenges)
+    redirect_to registrations_new_path(:id => member_id, :challenge_questions => challenges)
   end 
 
   def challenges_conversion(challenge_questions) 
@@ -67,7 +67,7 @@ private
   def poll_member_status(member_guid, member_id)
     member_status = read_member_status(member_guid)
     loop do 
-      sleep(3)
+      sleep(1)
       member_status = read_member_status(member_guid)
       break unless member_status.connection_status == "CREATED" || member_status.connection_status == "RESUMED"
     end 

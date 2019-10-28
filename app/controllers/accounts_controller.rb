@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   def show
-    p @account = read_account
+    @account = read_account
     @transactions = list_transactions
   end
 
