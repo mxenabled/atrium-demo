@@ -1,9 +1,13 @@
-<div class="button">
-<img src='<%=institution.small_logo_url %>'>
-<%= link_to "#{institution.name}",{
-    :controller => "members",
-    :action => "new",
-    :method => "get",
-    :institution_code => institution.code
-} %>
-</div>
+  <tr class="institution is-dark-gray">
+  <td>
+    <img class="column insitution-image" src='<%=institution.small_logo_url %>'>
+  </td>
+  <td>
+      <%= link_to "#{institution.name}",{
+        :controller => "members",
+        :action => "new",
+        :method => "get",
+        :institution_code => institution.code
+      }, class: "has-text-white button institution-button is-medium-gray is-fullwidth" %>
+    </td>
+  </tr>

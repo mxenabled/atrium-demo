@@ -1,11 +1,11 @@
-<tr>
+<tr class="is-borderless">
     <td class="date"><%= date_fix(transaction.date) %></td>
     <td class="description"><%= "#{transaction.description}" %></td>
     <td class="amount"><%=  "$#{transaction.amount}" %></td>
     <td class="category"><%= " #{transaction.category}" %></td>
     <% if transaction.status == "PENDING" %>
-      <td class="status">
-        <span class="pending"> Pending Transaction </span> 
+      <td class="has-text-danger">
+        <span> Pending Transaction </span> 
       </td>
     <% end %>
 </tr>

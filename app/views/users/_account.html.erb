@@ -1,8 +1,10 @@
-<div class="button">
-    <%= link_to "#{account[:name]} - Balance: #{account[:balance]}",{
-        :controller => "accounts",
-        :action => "show",
-        :method => "get",
-        :account_guid => account[:guid]
-    } %>
-</div>
+<tr>
+    <td>
+            <%= link_to "#{account[:name]} -  $#{account[:balance]}",{
+                :controller => "accounts",
+                :action => "show",
+                :method => "get",
+                :account_guid => account[:guid]
+            }, class: "button account-button is-fullwidth is-dark-gray has-text-white" %>
+    </td>
+</tr>

@@ -1,1 +1,92 @@
  @import "bulma";
+
+ html,body {
+   background-color: #2c2e2f;
+   color: white;
+  }
+
+  .table, tr, td, th {
+    background-color: transparent;
+    color: white !important;
+  }
+
+.institution-link {
+  color: white;
+}
+
+.institution-link :hover {
+  color: rgb(70, 68, 68);
+}
+
+.institution-image {
+  display:inline;
+}
+
+.institution-button {
+  margin-top: 7.5%;
+  margin-left: -2%;
+}
+
+.institutions-table {
+margin: 0px auto;
+}
+
+.is-medium-gray {
+  background-color: #2b2d2d;
+}
+
+.is-dark-gray {
+  background-color: #212324;
+}
+
+.is-light-gray{
+  background-color: #424648
+}
+
+#accounts-table {
+  width: 80%;
+  margin: 0px auto;
+  border: none !important;
+}
+
+.account-button{
+  margin-bottom: 3%;
+}
+
+.member-card {
+  width: 50%;
+  margin: 0px auto;
+}
+
+.no-shadow {
+  box-shadow: none;
+}
+
+.member-box {
+  margin-left: 20%;
+  margin-right: 20%;
+  border-color: white;
+}
+
+.member-control-button{
+  margin-bottom: 3%;
+  color: white;
+  background-color: #212324;
+}
+
+.is-borderless {
+  border: none;
+}
+
+.is-centered {
+  margin: 0px auto;
+}
+
+.is-transparent{
+  background-color: transparent;
+}
+
+#add-membership {
+  width: 50%;
+  margin: auto;
+}
