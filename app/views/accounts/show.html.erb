@@ -1,18 +1,19 @@
 <div class="container">
     <nav class="level account_info">   
+    <%= render 'shared/profile_button' %>
         <div class="level-item has-centered">
-            <p class="title"><%= @account.name %></p>
+            <p class="title has-text-white"><%= @account.name %></p>
         </div>
         <div class="level-item">
             <div>
-                <p class="title"><%= @account.balance %></p>
-                <p class="heading">Current Balance</p>
+                <p class="title has-text-white"><%= @account.balance %></p>
+                <p class="heading has-text-white">Current Balance</p>
             </div>
         </div>
         <div class="level-item">
             <div>
-                <p class="title"><%= @account.available_balance %></p>
-                <p class="heading">Available Balance </p>
+                <p class="title has-text-white"><%= @account.available_balance %></p>
+                <p class="heading has-text-white">Available Balance </p>
             </div>
         </div>
     </nav>
@@ -30,5 +31,5 @@
             <%= render partial: 'transaction', collection: @transactions %>
         </tbody>
     </table>
-    <%= render 'shared/profile_button' %>
+
 </div>
