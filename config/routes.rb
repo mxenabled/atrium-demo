@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
-  resources :members, :only => [:new, :create, :show] do
+  resources :members, :only => [:new, :create, :edit, :show, :update] do
     resources :registrations, :only => [:create], controller: 'members/registrations'
   end 
 

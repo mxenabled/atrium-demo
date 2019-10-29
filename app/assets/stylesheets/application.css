@@ -7,7 +7,6 @@
 
   .table, tr, td, th {
     background-color: transparent;
-    border: none !important;
     color: white !important;
   }
 
@@ -19,8 +18,17 @@
   color: rgb(70, 68, 68);
 }
 
+.institution-image {
+  display:inline;
+}
+
 .institution-button {
-  margin-top: 3%;
+  margin-top: 7.5%;
+  margin-left: -2%;
+}
+
+.institutions-table {
+margin: 0px auto;
 }
 
 .is-medium-gray {
@@ -38,6 +46,7 @@
 #accounts-table {
   width: 80%;
   margin: 0px auto;
+  border: none !important;
 }
 
 .account-button{
@@ -59,6 +68,25 @@
   border-color: white;
 }
 
+.member-control-button{
+  margin-bottom: 3%;
+  color: white;
+  background-color: #212324;
+}
+
 .is-borderless {
   border: none;
+}
+
+.is-centered {
+  margin: 0px auto;
+}
+
+.is-transparent{
+  background-color: transparent;
+}
+
+#add-membership {
+  width: 50%;
+  margin: auto;
 }

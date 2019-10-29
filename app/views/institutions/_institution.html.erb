@@ -1,13 +1,13 @@
-  <tr class="institution">
-    <td>
-        <img class="institution_image" src='<%=institution.small_logo_url %>'>
-        <div class="button is-dark institution-button">
-        <%= link_to "#{institution.name}",{
-          :controller => "members",
-          :action => "new",
-          :method => "get",
-          :institution_code => institution.code
-        }, class: "institution-link" %>
-      </div>
+  <tr class="institution is-dark-gray">
+  <td>
+    <img class="column insitution-image" src='<%=institution.small_logo_url %>'>
+  </td>
+  <td>
+      <%= link_to "#{institution.name}",{
+        :controller => "members",
+        :action => "new",
+        :method => "get",
+        :institution_code => institution.code
+      }, class: "has-text-white button institution-button is-medium-gray is-fullwidth" %>
     </td>
   </tr>

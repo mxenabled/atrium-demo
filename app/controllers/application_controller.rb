@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
 
   def read_member_status(member_guid) 
     member_status_response = client.members.read_member_status(member_guid, current_user.guid)
-    member_status_response&.member
+    p member_status_response&.member
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling MembersApi->read_member_status: #{e}"
   end

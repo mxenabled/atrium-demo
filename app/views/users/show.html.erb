@@ -1,12 +1,16 @@
+
+<div class="section">
+    <div class="level" id="add-membership">
+        <div class="title level-item has-centered has-text-white">Accounts</div>
+        <%= link_to "Add another account",{
+            :controller => "institutions",
+            :action => "index",
+            :method => "get",
+        }, class: "button level-item is-dark-gray has-centered has-text-white" %>
+    </div>
+</div>
 <div class="section">
     <%= render partial: 'member', collection: @members %>
     <div>
-        <div class="button"> 
-            <%= link_to "Add another account",{
-                :controller => "institutions",
-                :action => "index",
-                :method => "get",
-            } %>
-        </div>
     </div>
 </div>
