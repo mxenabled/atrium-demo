@@ -20,10 +20,9 @@ class Members::RegistrationsController < ApplicationController
 
 private
 
-  def bad_credentials_status(status, member_guid, member_id)
-    aggregate_member(member_guid)
-    poll_member_status(member_guid, member_id)
-  end  
+def bad_credentials_status(member_id)
+  redirect_to edit_member_path(:id => member_id)
+end 
 
   def challenged_status(status, member_id, challenges)
     redirect_to registrations_new_path(:id => member_id, :challenge_questions => challenges)
@@ -51,7 +50,9 @@ private
     when "CHALLENGED"
       challenged_status(connection_status, member_id, member_status.challenges)
     when "EXPIRED", "RECONNECTED"
-      bad_credentials_status(connection_status, member_guid, member_id)
+      reaggregate_status(connection_status, member_guid, member_id)
+    when "IMPORTED", "DENIED", "PREVENTED", "FAILED"
+      bad_credentials_status(member_id)
     else 
       display_message_status(member_id)
     end
@@ -77,6 +78,11 @@ private
   def registration_params
     params.permit(:member_guid, :id, :authenticity_token, :commit, :challenge_questions => [], :challenges => {})
   end 
+
+  def reaggregate_status(status, member_guid, member_id)
+    aggregate_member(member_guid)
+    poll_member_status(member_guid, member_id)
+  end
 
   def resume_aggregation(member_guid, challenges)
     member_info = {:member => {:challenges => challenges}}
