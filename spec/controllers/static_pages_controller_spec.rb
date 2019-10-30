@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe StaticPagesController, type: :controller do
 
@@ -6,7 +6,7 @@ RSpec.describe StaticPagesController, type: :controller do
 
     it "renders page" do 
       get :home
-      expect(response).to render_template("home")
+      expect(response.status).to eq(200)
     end 
   end 
 end
