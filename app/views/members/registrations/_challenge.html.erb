@@ -1,4 +1,3 @@
-<%= f.label @challenge_info[:guid] %>
-<%= f.label @challenge_info[:label] %>
-<%= f.text_field "challenges_arr[#{@challenge_info[:guid]}]" %>
-<%= f.hidden_field 'member_guid', :value => @member_guid %>
+<%= f.label challenge[:guid] %>
+<%= f.label challenge[:label] %>
+<%= f.text_field "challenges[#{challenge[:guid]}]" %>

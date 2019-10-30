@@ -19,12 +19,15 @@ private
 
   def members_body(members)
     members.map do |member|
+      member_status = read_member_status(member.guid)
       institution = read_institution(member.institution_code)
       accounts = accounts_body(member.guid)
       { :member => {
         :member_guid => member.guid,
+        :id => member.id,
         :institution_name => institution.name,
         :institution_logo => institution.small_logo_url,
+        :connection_status => member_status.connection_status,
         :accounts => accounts
         }
       }

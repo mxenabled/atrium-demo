@@ -4,13 +4,18 @@ Rails.application.routes.draw do
   as :user do
     get 'user', :to => 'users#show', :as => :user_root
   end
+
+  resources :members, :only => [:new, :create, :show] do
+    resources :registrations, :only => [:create], controller: 'members/registrations'
+  end 
+
   resources :accounts, :only => [:show]
   resources :institutions, :only => [:index]
-  resources :members, :only => [:new, :create, :show]
   resources :users, :only => [:show]
-
-
+  
   root  'static_pages#home' 
-  get   '/home',             to: 'static_pages#home'
-  post  '/members/registrations/resume',               to: 'members/registrations#create'
+  get  '/home',                  to: 'static_pages#home'
+  get  '/registrations/new',     to: 'members/registrations#new'
+  get  '/registrations/edit',    to: 'members/registrations#edit'
+
 end
