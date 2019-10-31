@@ -17,7 +17,7 @@
                 <%= link_to "Resolve Issues", registrations_edit_path(:id => member[:id]), class: "button is-fullwidth member-control-button has-text-white" %>
             </div>
             <div class="box is-medium-gray"> 
-                <table id="accounts-table">
+                <table class="borderless-table">
                     <tbody class="accounts-body">
                         <%= render partial: 'account', collection: member[:accounts] %>   
                     </tbody>

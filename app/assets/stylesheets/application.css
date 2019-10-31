@@ -43,7 +43,7 @@ margin: 0px auto;
   background-color: #424648
 }
 
-#accounts-table {
+.borderless-table {
   width: 80%;
   margin: 0px auto;
   border: none !important;
@@ -74,8 +74,9 @@ margin: 0px auto;
   background-color: #212324;
 }
 
-.is-borderless {
-  border: none;
+.is-borderless, td{
+  border: none !important;
+  border-collapse: collapse !important;
 }
 
 .is-centered {
@@ -86,6 +87,9 @@ margin: 0px auto;
   background-color: transparent;
 }
 
+.is-half-width {
+  width: 50%;
+}
 #add-membership {
   width: 50%;
   margin: auto;
