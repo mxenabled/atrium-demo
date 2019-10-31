@@ -1,5 +1,5 @@
 class InstitutionsController < ApplicationController
-  #before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def index
     @institutions = get_institutions
