@@ -20,15 +20,9 @@ class Members::RegistrationsController < ApplicationController
 
 private
 
-<<<<<<< HEAD
-def bad_credentials_status(member_id)
-  redirect_to edit_member_path(:id => member_id)
-end 
-=======
   def bad_credentials_status(member_id)
     redirect_to edit_member_path(:id => member_id)
   end 
->>>>>>> 0a369d870ec5eedadd8a7b5eebbf48d2b3d8be31
 
   def challenged_status(status, member_id, challenges)
     redirect_to registrations_new_path(:id => member_id, :challenge_questions => challenges)
