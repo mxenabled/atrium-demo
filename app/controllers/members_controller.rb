@@ -19,7 +19,8 @@ class MembersController < ApplicationController
   end 
 
   def show
-    member_status = read_member_status(member_guid)
+    @member = Member.find(member_params[:id])
+    member_status = read_member_status(@member.guid)
     @connection_status = ConnectionStatus.find_by_name(member_status.connection_status)
   end 
 
@@ -35,6 +36,13 @@ class MembersController < ApplicationController
     aggregate_member(member_guid)
     redirect_to user_path(current_user.id)
   end
+
+  def destroy
+      delete_member(member_guid)
+      @member = Member.find(member_params[:id])
+      @member.destroy
+      redirect_to '/users/show'
+  end
   
 private 
 
@@ -46,6 +54,12 @@ private
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling MembersApi->create_member: #{e}"
   end 
+
+  def delete_member(member_guid)
+    client.members.delete_member(member_guid, current_user.guid)
+  rescue Atrium::ApiError => e
+    Rails.logger.info "Exception when calling MembersApi->delete_member: #{e}"
+  end
 
   def get_institution_credentials(institution_code)
     institution_credentials_response = client.institutions.read_institution_credentials(institution_code)

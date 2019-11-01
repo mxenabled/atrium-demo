@@ -1,0 +1,6 @@
+<%= link_to "Delete Member",
+ member_path(@member), 
+ data: {:confirm => 'Are you sure?'},
+ :method => "delete",
+  class: "button is-dark-gray has-text-white" 
+%>
