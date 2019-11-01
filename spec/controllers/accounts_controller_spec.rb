@@ -10,7 +10,7 @@ RSpec.describe AccountsController, type: :controller do
     it "returns http success" do
       sign_in user
       get :show, :params => {:id => member.id, :account_guid => account_guid}
-      expect(response).to have_http_status(:success)
+      expect(response.status).to eq(200)
     end
   end
 end

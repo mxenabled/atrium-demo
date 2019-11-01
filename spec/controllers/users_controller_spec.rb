@@ -2,11 +2,11 @@ require 'spec_helper'
 
 RSpec.describe UsersController, type: :controller do
   
-  describe "it loads the users#show page" do
+  describe "GET users#show" do
     it "loads members" do 
-      @user = FactoryBot.create(:user, guid: "USR-9331248c-943c-44f7-b972-9f4305768477")
+      @user = FactoryBot.create(:user, guid: "USR-79941373-a635-4bc3-ac52-4cddbd74d6f9")
       sign_in @user
-      FactoryBot.create(:member, guid: "MBR-e05a8abb-adc4-4929-9574-4d1fef21190f", user: @user, user_id: user.id)
+      FactoryBot.create(:member, guid: "MBR-85bbc828-3a5c-49fd-981b-0a9942617d83", user_id: @user.id)
       get :show
       expect(response.status).to eq(200)
     end 
