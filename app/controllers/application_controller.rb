@@ -33,8 +33,8 @@ class ApplicationController < ActionController::Base
     Rails.logger.info "Exception when calling MembersApi->list_member_accounts: #{e}"
   end 
 
-  def get_member_guid(id)
-    member = Member.find(id) 
+  def get_member_guid(member_id)
+    member = Member.find(member_id) 
     member&.guid
   end 
 
@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
 
   def read_member_status(member_guid) 
     member_status_response = client.members.read_member_status(member_guid, current_user.guid)
-    p member_status_response&.member
+    member_status_response&.member
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling MembersApi->read_member_status: #{e}"
   end
