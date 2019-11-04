@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
   resources :members, :only => [:new, :create, :edit, :show, :update] do
-    resources :registrations, :only => [:new, :create, :edit], controller: 'members/registrations'
+    resources :registrations, :only => [:create], controller: 'members/registrations'
   end 
 
   resources :accounts, :only => [:show]
@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   get  '/home',                  to: 'static_pages#home'
   get  '/registrations/new',     to: 'members/registrations#new'
   get  '/registrations/edit',    to: 'members/registrations#edit'
+  
 end
