@@ -13,5 +13,5 @@ Rails.application.routes.draw do
   get  '/home',                  to: 'static_pages#home'
   get  '/registrations/new',     to: 'members/registrations#new'
   get  '/registrations/edit',    to: 'members/registrations#edit'
-
+  
 end
