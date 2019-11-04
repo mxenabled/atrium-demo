@@ -1,9 +1,8 @@
 class Members::RegistrationsController < ApplicationController
   def new
-    challenge_questions = registration_params[:challenge_questions]
-    @challenges = challenges_conversion(challenge_questions)
     @member_id = registration_params[:id]
     @member_guid = get_member_guid(@member_id)
+    @challenges = list_challenges(@member_guid)
   end 
 
   def create 
@@ -25,13 +24,7 @@ private
   end 
 
   def challenged_status(status, member_id, challenges)
-    redirect_to registrations_new_path(:id => member_id, :challenge_questions => challenges)
-  end 
-
-  def challenges_conversion(challenge_questions) 
-    challenge_questions.map do |challenge|
-        eval(challenge)
-    end
+    redirect_to registrations_new_path(:id => member_id)
   end 
   
   def clean_status(status)

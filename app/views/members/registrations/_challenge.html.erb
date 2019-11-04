@@ -1,5 +1,5 @@
 <div class="field">
-	<%= f.label challenge[:guid], class:"has-text-white" %>
-	<%= f.label challenge[:label], class:"label has-text-white" %>
-	<%= f.text_field "challenges[#{challenge[:guid]}]", class:"input is-rounded is-primary" %>
+	<%= mfa_challenge_type(challenge) %>
+	<%= f.label challenge.label, class:"label has-text-white" %>
+	<%= f.text_field "challenges[#{challenge.guid}]", class:"input is-rounded is-primary" %>
 </div>
