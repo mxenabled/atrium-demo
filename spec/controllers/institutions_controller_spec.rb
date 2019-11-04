@@ -1,7 +1,7 @@
 RSpec.describe InstitutionsController, type: :controller do
   let(:user) { ::FactoryBot.create(:user) }
 
-  describe '#index' do 
+  describe 'GET#index' do 
     it "loads successfully" do 
       sign_in user 
       get :index
