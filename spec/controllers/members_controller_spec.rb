@@ -4,7 +4,6 @@ RSpec.describe MembersController, type: :controller do
 
   describe "GET #new" do 
     context "when user is logged in" do
-
         before(:each) do 
           @user = FactoryBot.create(:user, guid: "USR-79941373-a635-4bc3-ac52-4cddbd74d6f9")
           @member = FactoryBot.create(:member, guid: "MBR-85bbc828-3a5c-49fd-981b-0a9942617d83", user_id: @user.id)
@@ -24,7 +23,6 @@ RSpec.describe MembersController, type: :controller do
 
   describe "GET #edit" do 
     context "when user is logged in" do 
-
       before(:each) do 
         @user = FactoryBot.create(:user, guid: "USR-79941373-a635-4bc3-ac52-4cddbd74d6f9")
         @member = FactoryBot.create(:member, guid: "MBR-85bbc828-3a5c-49fd-981b-0a9942617d83", user_id: @user.id)
