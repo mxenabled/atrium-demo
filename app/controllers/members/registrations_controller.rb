@@ -23,7 +23,7 @@ private
     redirect_to edit_member_path(:id => member_id)
   end 
 
-  def challenged_status(status, member_id, challenges)
+  def challenged_status(member_id)
     redirect_to registrations_new_path(:id => member_id)
   end 
   
