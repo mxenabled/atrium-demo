@@ -1,8 +1,6 @@
 module Members::RegistrationsHelper
   def mfa_image(challenge)
-    if challenge.type == "IMAGE_DATA"
-      image_tag "#{challenge.image_data}"
-    end
+    image_tag "#{challenge.image_data}" if challenge.type == "IMAGE_DATA" 
   end
 
   def mfa_type(challenge, f)
