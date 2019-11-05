@@ -13,7 +13,7 @@ RSpec.describe StaticPagesController, type: :controller do
       it "redirects to members#index if logged in" do 
         sign_in user
         get :home
-        response.should redirect_to '/members/index'
+        response.should redirect_to '/members'
       end 
     end 
   end
