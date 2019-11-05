@@ -1,7 +1,7 @@
  @import "bulma";
 
  html,body {
-   background-color: #2c2e2f;
+   background-color: #36383a;
    color: white;
   }
 
@@ -32,11 +32,11 @@ margin: 0px auto;
 }
 
 .is-medium-gray {
-  background-color: #2b2d2d;
+  background-color: #353638;
 }
 
 .is-dark-gray {
-  background-color: #212324;
+  background-color: #2a2d2d;
 }
 
 .is-light-gray{
@@ -71,7 +71,7 @@ margin: 0px auto;
 .member-control-button{
   margin-bottom: 3%;
   color: white;
-  background-color: #212324;
+  background-color: #2a2d2d;
 }
 
 .is-borderless, td{
@@ -93,4 +93,9 @@ margin: 0px auto;
 #add-membership {
   width: 50%;
   margin: auto;
+}
+
+.nav-button {
+  margin: 5%;
+  color: white;
 }
