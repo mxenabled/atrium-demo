@@ -10,10 +10,10 @@ RSpec.describe StaticPagesController, type: :controller do
         expect(response.status).to eq(200)
       end 
 
-      it "redirects to users#show if logged in" do 
+      it "redirects to members#index if logged in" do 
         sign_in user
         get :home
-        response.should redirect_to '/users/show'
+        response.should redirect_to '/members/index'
       end 
     end 
   end

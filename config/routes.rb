@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
-  resources :members, :except => [:index] do
+  resources :members do
     resources :registrations, :only => [:create], controller: 'members/registrations'
   end 
 
-  resources :accounts, :only => [:show]
+  resource :accounts, :only => [:show]
   resources :institutions, :only => [:index]
-  resources :users, :only => [:show]
   
   root  'static_pages#home' 
   get  '/home',                  to: 'static_pages#home'

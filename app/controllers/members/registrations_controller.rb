@@ -9,7 +9,7 @@ class Members::RegistrationsController < ApplicationController
   def create 
     challenges = credentials_to_array(registration_params[:challenges].to_h)
     resume_aggregation(registration_params[:member_guid], challenges)
-    redirect_to '/users/show'
+    redirect_to members_path
   end 
 
   def edit
@@ -35,7 +35,7 @@ private
   end 
   
   def clean_status(status)
-    redirect_to user_path(current_user.id)
+    redirect_to members_path
   end 
 
   def display_message_status(member_id)
