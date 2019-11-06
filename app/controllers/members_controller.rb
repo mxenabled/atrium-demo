@@ -16,7 +16,7 @@ class MembersController < ApplicationController
     delete_member(member_guid)
     @member = Member.find(member_params[:id])
     @member.destroy
-    redirect_to '/members/index'
+    redirect_to members_path
   end
 
   def edit
