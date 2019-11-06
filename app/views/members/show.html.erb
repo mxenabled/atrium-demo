@@ -1,37 +1,37 @@
 <div class="section>"
-	<div id="member-container" class="container">
-		<div class="box member-box is-dark-gray">
-			<div class='card is-dark-gray'>
-			<%= @member_guid %>
-			<% unless @connection_status.name == "CONNECTED" %>
-				<p class="title is-4 has-text-white"><%= @connection_status.name %></p>
-				<p class="subtitle is-6 has-text-white"><%= @connection_status.message %></p>
-				<%= link_to "Resolve Issues", registrations_edit_path(id: @member.id), class: "button is-fullwidth member-control-button has-text-white" %>
-				<%= render 'delete_button' %>
-			<% else %>
-				<div class="media">
-					<div class="media-left">
-						<figure class="image is-96x96">
-						<img src=<%= @institution.medium_logo_url %> />
-						</figure>
-					</div>
-					<div class="media-content">
-						<p class ="subtitle is-4 has-text-white">Your Membership at:</p>
-						<p class="title is-1 has-text-white"><%= @institution.name %></p>
-						<%= render 'delete_button' %>
-					</div>
-				</div>
-				<div class="content">
-					<div class="box is-medium-gray">
-						<table class="borderless-table">
-							<tbody class="accounts-body">
-								<%= render partial: 'account', collection: @accounts %>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			<% end %>
-			</div>
-		</div>
-	</div>
+  <div id="member-container" class="container">
+    <div class="box member-box is-dark-gray">
+      <div class='card is-dark-gray'>
+        <%= @member_guid %>
+        <% unless @connection_status.name == "CONNECTED" %>
+          <p class="title is-4 has-text-white"><%= @connection_status.name %></p>
+          <p class="subtitle is-6 has-text-white"><%= @connection_status.message %></p>
+          <%= link_to "Resolve Issues", registrations_edit_path(id: @member.id), class: "button is-fullwidth member-control-button has-text-white" %>
+          <%= render 'delete_button' %>
+        <% else %>
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-96x96">
+                <img src=<%= @institution.medium_logo_url %> />
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class ="subtitle is-4 has-text-white">Your Membership at:</p>
+              <p class="title is-1 has-text-white"><%= @institution.name %></p>
+              <%= render 'delete_button' %>
+            </div>
+          </div>
+          <div class="content">
+            <div class="box is-medium-gray">
+              <table class="borderless-table">
+                <tbody class="accounts-body">
+                  <%= render partial: 'account', collection: @accounts %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
