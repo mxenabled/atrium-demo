@@ -1,12 +1,6 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!
 
-  def new 
-    @institution_code = member_params[:institution_code]
-    @institution_credentials = get_institution_credentials(@institution_code)
-    @form_url = '/members'
-  end 
-
   def create
     member_credentials = credentials_to_array(member_params[:credentials].to_h)
     atrium_member = create_atrium_member(member_params[:institution_code], member_credentials)
@@ -18,11 +12,12 @@ class MembersController < ApplicationController
     end         
   end 
 
-  def show
+  def destroy
+    delete_member(member_guid)
     @member = Member.find(member_params[:id])
-    member_status = read_member_status(@member.guid)
-    @connection_status = ConnectionStatus.find_by_name(member_status.connection_status)
-  end 
+    @member.destroy
+    redirect_to members_path
+  end
 
   def edit
     @institution_credentials = list_member_credentials(member_guid)
@@ -30,21 +25,41 @@ class MembersController < ApplicationController
     @method = :patch
   end
 
+  def index 
+    @members ||= members_body(current_user.members.all)
+  end 
+
+  def new 
+    @institution_code = member_params[:institution_code]
+    @institution_credentials = get_institution_credentials(@institution_code)
+    @form_url = '/members'
+  end 
+
+  def show
+    @member = Member.find(member_params[:id])
+    member_status = read_member_status(@member.guid)
+    @connection_status = ConnectionStatus.find_by_name(member_status.connection_status)
+  end 
+
   def update
     updated_credentials = credentials_to_array(member_params[:credentials].to_h)
     update_member_credentials(member_guid, updated_credentials)
     aggregate_member(member_guid)
-    redirect_to user_path(current_user.id)
-  end
-
-  def destroy
-      delete_member(member_guid)
-      @member = Member.find(member_params[:id])
-      @member.destroy
-      redirect_to '/users/show'
+    redirect_to members_path
   end
   
 private 
+
+  def accounts_body(member_guid)
+    accounts = get_member_accounts(member_guid)
+    accounts.map do |account|
+      {
+        :guid => account.guid,
+        :name => account.name,
+        :balance => account.balance
+      }
+    end 
+  end 
 
   def create_atrium_member(institution_code, credentials)
     member_info = {:member => {:institution_code => institution_code, :credentials => credentials, :skip_aggregation => false}}
@@ -73,6 +88,23 @@ end
     credentials_response&.credentials
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling MembersApi->list_member_credentials: #{e}"
+  end
+
+  def members_body(members)
+    members.map do |member|
+      member_status = read_member_status(member.guid)
+      institution = read_institution(member.institution_code)
+      accounts = accounts_body(member.guid)
+      { :member => {
+        :member_guid => member.guid,
+        :id => member.id,
+        :institution_name => institution.name,
+        :institution_logo => institution.small_logo_url,
+        :connection_status => member_status.connection_status,
+        :accounts => accounts
+        }
+      }
+    end
   end
 
   def member_guid
