@@ -8,13 +8,16 @@ class Members::RegistrationsController < ApplicationController
   def create 
     challenges = credentials_to_array(registration_params[:challenges].to_h)
     resume_aggregation(registration_params[:member_guid], challenges)
-    redirect_to members_path
+    poll_member_status(registration_params[:member_guid], registration_params[:id])
   end 
 
   def edit
     member_guid = get_member_guid(registration_params[:id])
     member_status = read_member_status(member_guid)
     handle_connection_status(member_status, member_guid, registration_params[:id])
+  end 
+
+  def show 
   end 
 
 private
@@ -38,11 +41,11 @@ private
   def handle_connection_status(member_status, member_guid, member_id)
     connection_status = member_status.connection_status
     case connection_status
-    when "CONNECTED", "RESUMED", "CREATED"
+    when "CONNECTED"
       clean_status(connection_status)
     when "CHALLENGED"
-      challenged_status(connection_status, member_id, member_status.challenges)
-    when "EXPIRED", "RECONNECTED"
+      challenged_status(member_id)
+    when "EXPIRED", "RECONNECTED", "RESUMED", "CREATED"
       reaggregate_status(connection_status, member_guid, member_id)
     when "IMPORTED", "DENIED", "PREVENTED", "FAILED"
       bad_credentials_status(member_id)
