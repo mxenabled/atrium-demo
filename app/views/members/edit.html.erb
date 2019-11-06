@@ -1,1 +1,6 @@
-<%= render partial: 'credential_form' %>
+<div class="container top-container">
+  <div class="box member-box is-dark-gray">
+    <p class="subtitle is-4 has-text-danger"><%= @connection_status.message %></p>
+    <%= render partial: 'credential_form' %>
+  </div>
+</div>
