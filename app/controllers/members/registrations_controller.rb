@@ -17,9 +17,6 @@ class Members::RegistrationsController < ApplicationController
     handle_connection_status(member_status, member_guid, registration_params[:id])
   end 
 
-  def show 
-  end 
-
 private
 
   def bad_credentials_status(member_id)
