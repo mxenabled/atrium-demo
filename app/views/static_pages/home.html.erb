@@ -1,13 +1,28 @@
-<section class="hero is-primary">
-  <div class="container">
-    <div class="tile is-parent is-vertical is-primary">
-      <h1 class="title">
-        Finlysian
-      </h1>
-      <h2 class="subtitle">
-         A Personal Finance Management Tool
-      </h2>
-      <p>Utilize the data you already have to become financially strong!</p>
-    </div>
+
+<div class="container">
+  <div class="box is-light-gray margin-top-small is-half-width is-centered"> 
+    <figure class="is-centered">
+      <img src=<%= asset_url("finlogo.png") %> />
+    </figure>
+    <%= form_for(:user, :url => session_path(:user)) do |f| %>
+      <div class="field">
+        <%= f.label "Email", class: "label has-text-white" %>
+        <%= f.text_field :email, class: 'input is-primary is-rounded'%>
+      </div>
+      <div class="field">
+        <%= f.label "Password", class: "label has-text-white" %>
+        <%= f.password_field :password, class: 'input is-primary is-rounded' %>
+      </div>
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me, class: "label has-text-white" %>
+      <%= f.submit 'Sign in', class: 'button is-dark-gray has-text-white' %>
+      <div class="field">
+        <%= link_to "Forgot your password?", new_password_path(:user), class: 'has-text-white' %>
+      </div>
+    <% end %>
   </div>
-</section>
+</div>
+
+
+
+

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resource :accounts, :only => [:show]
   resources :institutions, :only => [:index]
+  resources :users, :only => [:show]
   
   root  'static_pages#home' 
   get  '/home',                  to: 'static_pages#home'
