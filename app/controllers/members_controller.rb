@@ -20,6 +20,8 @@ class MembersController < ApplicationController
   end
 
   def edit
+    member_status = read_member_status(member_guid)
+    @connection_status = ConnectionStatus.find_by_name(member_status.connection_status)
     @institution_credentials = list_member_credentials(member_guid)
     @form_url = "/members/#{member_params[:id]}"
     @method = :patch
@@ -39,6 +41,8 @@ class MembersController < ApplicationController
     @member = Member.find(member_params[:id])
     member_status = read_member_status(@member.guid)
     @connection_status = ConnectionStatus.find_by_name(member_status.connection_status)
+    @institution = read_institution(@member.institution_code)
+    @accounts = accounts_body(@member.guid)
   end 
 
   def update

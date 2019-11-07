@@ -1,35 +1,33 @@
 <div class="container">
-    <nav class="level account_info margin-top-small">   
-    <%= render 'shared/profile_button' %>
-        <div class="level-item has-centered">
-            <p class="title has-text-white"><%= @account.name %></p>
-        </div>
-        <div class="level-item">
-            <div>
-                <p class="title has-text-white"><%= @account.balance %></p>
-                <p class="heading has-text-white">Current Balance</p>
-            </div>
-        </div>
-        <div class="level-item">
-            <div>
-                <p class="title has-text-white"><%= @account.available_balance %></p>
-                <p class="heading has-text-white">Available Balance </p>
-            </div>
-        </div>
-    </nav>
-
-    <table class="table is-fullwidth borderless-table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Category</th>
-            </tr>
-        </thead>
-        <tbody>
-            <%= render partial: 'transaction', collection: @transactions %>
-        </tbody>
-    </table>
-
+  <nav class="level account_info top-margin-small">
+    x<%= render 'shared/profile_button' %>
+    <div class="level-item has-centered">
+      <p class="title has-text-white"><%= @account.name %></p>
+    </div>
+    <div class="level-item">
+      <div>
+        <p class="title has-text-white"><%= @account.balance %></p>
+        <p class="heading has-text-white">Current Balance</p>
+      </div>
+    </div>
+    <div class="level-item">
+      <div>
+        <p class="title has-text-white"><%= @account.available_balance %></p>
+        <p class="heading has-text-white">Available Balance </p>
+      </div>
+    </div>
+  </nav>
+  <table class="table is-fullwidth borderless-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'transaction', collection: @transactions %>
+    </tbody>
+  </table>
 </div>
