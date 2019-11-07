@@ -1,28 +1,30 @@
 <div class="box is-dark-gray member-box">
-    <div class="card is-dark-gray no-shadow">
-        <% member = member[:member] %>
-        <div class="card-content member-card">
-            <div class="media box is-dark-gray">
-                <div class="media-left">
-                    <figure class="image is-48x48">
-                        <img src=<%= member[:institution_logo]%> />
-                    </figure>
-                </div>
-                <div class="media-content">
-                    <p class="title is-4 has-text-white"><%= member[:institution_name] %></p>
-                </div>
-            </div>
-            <div class="box is-medium-gray">
-                <%= link_to "View Membership", member_path(:id => member[:id]), class: "button is-fullwidth member-control-button has-text-white"  %>  
-                <%= link_to "Resolve Issues", registrations_edit_path(:id => member[:id]), class: "button is-fullwidth member-control-button has-text-white" %>
-            </div>
-            <div class="box is-medium-gray"> 
-                <table class="borderless-table">
-                    <tbody class="accounts-body">
-                        <%= render partial: 'account', collection: member[:accounts] %>   
-                    </tbody>
-                </table>
-            </div>
+  <div class="card is-dark-gray no-shadow">
+    <% member = member[:member] %>
+    <div class="card-content member-card">
+      <div class="media box is-dark-gray">
+        <div class="media-left">
+            <figure class="image is-48x48">
+                <img src=<%= member[:institution_logo]%> />
+            </figure>
         </div>
+        <div class="media-content">
+            <p class="title is-4 has-text-white"><%= member[:institution_name] %></p>
+        </div>
+      </div>
+      <div class="box is-medium-gray">
+        <%= link_to "View Membership", member_path(:id => member[:id]), class: "button is-fullwidth member-control-button has-text-white"  %>  
+        <% unless member[:connection_status] == "CONNECTED" %>
+          <%= link_to "Resolve Issues", registrations_edit_path(id: member[:id]), class: "button is-fullwidth member-control-button has-text-white" %>
+        <% end %>
+      </div>
+      <div class="box is-medium-gray"> 
+        <table class="borderless-table">
+          <tbody class="accounts-body">
+            <%= render partial: 'account', collection: member[:accounts] %>   
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 </div>
