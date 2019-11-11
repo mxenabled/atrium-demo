@@ -1,22 +1,20 @@
 <div class="container">
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="box is-light-gray top-margin-small">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
-      <%= f.label :email, class: "label" %><br />
+      <%= f.label :email, class: "label has-text-white" %><br />
       <%= f.email_field :email, class: "input is-rounded is-primary", autofocus: true, autocomplete: "email" %>
     </div>
-
     <div class="field">
-      <%= f.label :password, class: "label" %><br />
+      <%= f.label :password, class: "label has-text-white" %><br />
       <%= f.password_field :password, class: "input is-rounded is-primary", autocomplete: "current-password" %>
     </div>
-
     <% if devise_mapping.rememberable? %>
       <div class="field">
         <%= f.check_box :remember_me %>
-        <%= f.label :remember_me, class: "label" %>
+        <%= f.label :remember_me, class: "label has-text-white" %>
       </div>
     <% end %>
-
     <div class="actions">
       <%= f.submit "Log in", class: "button is-primary" %>
     </div>

@@ -15,7 +15,7 @@
       <div class="box is-medium-gray">
         <%= link_to "View Membership", member_path(:id => member[:id]), class: "button is-fullwidth member-control-button has-text-white"  %>  
         <% unless member[:connection_status] == "CONNECTED" %>
-          <%= link_to "Resolve Issues", registrations_edit_path(id: member[:id]), class: "button is-fullwidth member-control-button has-text-white" %>
+          <%= link_to "Resolve Issues", registrations_edit_path(id: member[:id]), class: "button is-fullwidth member-control-button resolve-issue" %>
         <% end %>
       </div>
       <div class="box is-medium-gray"> 
