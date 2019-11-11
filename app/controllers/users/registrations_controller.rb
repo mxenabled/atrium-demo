@@ -27,9 +27,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # DELETE /resource
-  # def destroy
-  #   super
-  # end
+  def destroy
+    delete_atrium_user
+    super
+  end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
@@ -49,6 +50,14 @@ protected
   rescue Atrium::ApiError => e
     Rails.logger.info "Exception when calling UsersApi->create_user: #{e}"
   end 
+
+  def delete_atrium_user
+    client.users.delete_user(current_user.guid)
+  rescue Atrium::ApiError => e
+      Rails.logger.info "Exception when calling UsersApi->delete_user: #{e}"
+    end
+
+
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
