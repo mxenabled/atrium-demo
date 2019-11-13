@@ -1,6 +1,6 @@
 <div class="container">
   <div class="box is-dark-gray is-half-width is-centered top-margin-small">
-    <%=form_with url: member_registrations_path(@member_id) do |f| %>
+    <%=form_with url: registrations_path(@member_id) do |f| %>
       <%= render partial: 'challenge', collection: @challenges, locals: {f:f} %>
       <%= f.hidden_field 'member_guid', :value => @member_guid %>
       <%= f.submit "Submit", class:"button is-dark-gray has-text-white" %>
