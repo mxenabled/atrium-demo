@@ -6,7 +6,7 @@ class MembersController < ApplicationController
     atrium_member = create_atrium_member(member_params[:institution_code], member_credentials)
     member = Member.from_atrium_member(atrium_member, current_user.id)
     if member.save!
-      redirect_to registrations_edit_path(:id => member.id)
+      redirect_to edit_registrations_path(:id => member.id)
     else  
       redirect_to '/institutions'
     end         

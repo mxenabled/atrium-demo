@@ -1,4 +1,4 @@
-class Members::RegistrationsController < ApplicationController
+class RegistrationsController < ApplicationController
   def new
     @member_id = registration_params[:id]
     @member_guid = get_member_guid(@member_id)
@@ -24,7 +24,7 @@ private
   end 
 
   def challenged_status(member_id)
-    redirect_to registrations_new_path(:id => member_id)
+    redirect_to new_registrations_path(:id => member_id)
   end 
   
   def clean_status(status)
