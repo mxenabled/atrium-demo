@@ -2,7 +2,7 @@
 # Atrium Demo App
 
 
-A web app that consumes the Atrium API from MX to allow users to pull in multiple accounts from multiple financial instutitions so they can easily view all of their balances and transactions in one place.
+An example web app for a fictional company named Finlysian that consumes the Atrium API from MX to allow users to pull in multiple accounts from multiple financial instutitions so they can easily view all of their balances and transactions in one place.
 
 This app is a very basic demo of the Atrium API.
 
@@ -16,7 +16,7 @@ This app is a very basic demo of the Atrium API.
 5. Set up the database `rails db:setup`
 6. Start up the local server `rails s`
 
-The above steps will get the app up an running with default page routes for `sign up`, `login` and `forgot password`. We are using the Devise gem for authentication. If you forget to do this you will get errors when you try to sign up a user. Once you add your credentials and create an account you will be able to see pages for aggregating accounts and managing your user profile.
+The above steps will get the app up an running with default page routes for `sign up`, `login` and `forgot password`. We are using the Devise gem for authentication. Once you add your credentials and create an account you will be able to see pages for aggregating accounts and managing your user profile. If you forget to do this you will get errors when you try to sign up a user.
 
 In order to start pushing/pulling data from the MX API you will need to add your Atrium API credentials to the `credentials.yml.enc file`.
 
